@@ -1,0 +1,47 @@
+﻿<Page x:Class="OOTPiSP_Laba1.Windows.Pages.MyCirclePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:OOTPiSP_Laba1.Windows.Pages"
+      mc:Ignorable="d" 
+      d:DesignWidth="300"
+      Title="MyCirclePage">
+
+	<Grid>
+		<Border BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CornerRadius="50"
+				BorderBrush="#99FFFFFF" Background="#77000000" Padding="20">
+			<Grid x:Name="GMain">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition/>
+					<RowDefinition/>
+					<RowDefinition/>
+					<RowDefinition/>
+					<RowDefinition/>
+					<RowDefinition/>
+					<RowDefinition/>
+				</Grid.RowDefinitions>
+				<Label Grid.Row="0" Grid.Column="0" Content="Name" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Foreground="LightGray"/>
+				<Label Grid.Row="1" Grid.Column="0" Content="Thickness(px)" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Foreground="LightGray"/>
+				<Label Grid.Row="2" Grid.Column="0" Content="Border color" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Foreground="LightGray"/>
+				<Label Grid.Row="3" Grid.Column="0" Content="Background color" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Foreground="LightGray"/>
+				<Label Grid.Row="4" Grid.Column="0" Content="Global angle(Deg)" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Foreground="LightGray"/>
+				<Label Grid.Row="5" Grid.Column="0" Content="Position(x,y)(px)" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Foreground="LightGray"/>
+				<Label Grid.Row="6" Grid.Column="0" Content="Radius(px)" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Foreground="LightGray"/>
+				<TextBox x:Name="TbName" Grid.Row="0" Grid.Column="1" Background="#44FFFFFF" BorderBrush="{x:Null}" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Style="{DynamicResource TextBoxStyle1}"/>
+				<TextBox x:Name="TbThickness" Grid.Row="1" Grid.Column="1" Background="#44FFFFFF" BorderBrush="{x:Null}" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" KeyDown="Numbers_KeyDown" Style="{DynamicResource TextBoxStyle1}" MaxLength="2" LostKeyboardFocus="Numbers_LostKeyboardFocus" PreviewKeyDown="Numbers_PreviewKeyDown"/>
+				<Border x:Name="BColor" Grid.Row="2" Grid.Column="1" BorderBrush="#77FFFFFF" BorderThickness="1" VerticalAlignment="Top" Height="30" MouseLeftButtonUp="Color_MouseLeftButtonUp"/>
+				<Border x:Name="BgColor" Grid.Row="3" Grid.Column="1" BorderBrush="#77FFFFFF" BorderThickness="1" VerticalAlignment="Top" Height="30" MouseLeftButtonUp="Color_MouseLeftButtonUp"/>
+				<TextBox x:Name="TbAngle" Grid.Row="4" Grid.Column="1" Background="#44FFFFFF" BorderBrush="{x:Null}" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" KeyDown="Numbers_KeyDown" Style="{DynamicResource TextBoxStyle1}" MaxLength="3" LostKeyboardFocus="Numbers_LostKeyboardFocus" PreviewKeyDown="Numbers_PreviewKeyDown"/>
+				<TextBox x:Name="TbPosX" Grid.Row="5" Grid.Column="1" Background="#44FFFFFF" BorderBrush="{x:Null}" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="80" KeyDown="Numbers_KeyDown" Style="{DynamicResource TextBoxStyle1}" LostKeyboardFocus="Numbers_LostKeyboardFocus" PreviewKeyDown="Numbers_PreviewKeyDown"/>
+				<TextBox x:Name="TbPosY" Grid.Row="5" Grid.Column="1" Background="#44FFFFFF" BorderBrush="{x:Null}" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="80" KeyDown="Numbers_KeyDown" Style="{DynamicResource TextBoxStyle1}" LostKeyboardFocus="Numbers_LostKeyboardFocus" PreviewKeyDown="Numbers_PreviewKeyDown"/>
+				<TextBox x:Name="TbRadius" Grid.Row="6" Grid.Column="1" Background="#44FFFFFF" BorderBrush="{x:Null}" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" KeyDown="Numbers_KeyDown" Style="{DynamicResource TextBoxStyle1}" LostKeyboardFocus="Numbers_LostKeyboardFocus" PreviewKeyDown="Numbers_PreviewKeyDown"/>
+			</Grid>
+		</Border>
+
+	</Grid>
+</Page>

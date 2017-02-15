@@ -1,0 +1,9 @@
+GraphicalObject			Position	AngleGlobal	BorderColor	BGColor													
+	Line:				Position	AngleGlobal	BorderColor	BGColor	Length1											
+		Squa:			Position	AngleGlobal	BorderColor	BGColor	Length1											
+			Romb:		Position	AngleGlobal	BorderColor	BGColor	Length1									Angle1	
+				Para:	Position	AngleGlobal	BorderColor	BGColor	Length1	Length2							Angle1	
+				Tria:	Position	AngleGlobal	BorderColor	BGColor	Length1	Length2							Angle1	
+		Rect:			Position	AngleGlobal	BorderColor	BGColor	Length1	Length2									
+	Circ:				Position	AngleGlobal	BorderColor	BGColor							RadiusX					
+		Elip:			Position	AngleGlobal	BorderColor	BGColor							RadiusX	RadiusY			

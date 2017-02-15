@@ -1,0 +1,222 @@
+﻿<Window x:Name="WMain" x:Class="OOTPiSP_Laba1.Windows.MainWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:windows="clr-namespace:OOTPiSP_Laba1.Windows"
+		mc:Ignorable="d"
+		Title="FigureMax" Height="768" Width="1366" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+		WindowState="Normal" MouseLeftButtonDown="CMain_MouseLeftButtonDown" MouseMove="CMain_MouseMove"
+		Closing="MainWindow_OnClosing">
+	<Grid>
+		<Border HorizontalAlignment="Stretch" Margin="0,50,200,30" VerticalAlignment="Stretch" BorderThickness="0"
+				BorderBrush="Black" Background="DimGray">
+			<Canvas x:Name="CMain" />
+		</Border>
+		<Rectangle Fill="#3c3c3c" HorizontalAlignment="Stretch" Height="50" Stroke="#3c3c3c"
+					VerticalAlignment="Top" />
+		<Rectangle Fill="#3c3c3c" HorizontalAlignment="Stretch" Height="30" Stroke="#3c3c3c"
+					VerticalAlignment="Bottom" Margin="0,291,0,0" />
+		<Rectangle Fill="#3c3c3c" HorizontalAlignment="Right" Stroke="#3c3c3c" VerticalAlignment="Stretch"
+					Width="200" Margin="0,50,0,30" />
+		<ListBox x:Name="LbObjects" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="200" BorderThickness="0"
+				Margin="0,50,0,120" SelectionChanged="ObjectsList_SelectionChanged" SelectionMode="Extended" Background="#7c7c7c"/>
+		<WrapPanel HorizontalAlignment="Right" Height="90" VerticalAlignment="Bottom" Width="200" Margin="0,0,0,30" Background="Transparent">
+			<Button Content="Select all" Width="100" Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.Select"/>
+			<Button Content="Unselect all" Width="100" Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.Unselect"/>
+			<Button Content="Delete" Width="100" Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.Delete"/>
+			<Button Content="Edit" Width="100" Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.EditElem"/>
+			<Button Content="Save" Width="100" Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.Save"/>
+			<Button Content="Load" Width="100" Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.Open"/>
+		</WrapPanel>
+		<Menu HorizontalAlignment="Stretch" Height="30" VerticalAlignment="Bottom" Background="Transparent" Focusable="False" IsMainMenu="False">
+			<Label x:Name="LMouseCoords" Content="" Focusable="False"/>
+		</Menu>
+		<Menu HorizontalAlignment="Stretch" Height="20" VerticalAlignment="Top" Background="Transparent" Style="{DynamicResource MyMenuStyle}">
+			<MenuItem Foreground="White" Header="File" Cursor="Arrow" Template="{DynamicResource MyMenuItemControlTemplate}">
+				<MenuItem x:Name="MenOpen" Header="Open..." Template="{DynamicResource MenuItemControlTemplate1}">
+					<MenuItem.Icon>
+						<Image>
+							<Image.Source>
+								<BitmapImage UriSource="/OOTPiSP_Laba1;component/Properties/Img/folder.png" />
+							</Image.Source>
+						</Image>
+					</MenuItem.Icon>
+				</MenuItem>
+				<MenuItem x:Name="MenSave" Header="Save..." Template="{DynamicResource MenuItemControlTemplate1}">
+					<MenuItem.Icon>
+						<Image>
+							<Image.Source>
+								<BitmapImage UriSource="/OOTPiSP_Laba1;component/Properties/Img/Save.png" />
+							</Image.Source>
+						</Image>
+					</MenuItem.Icon>
+				</MenuItem>
+				<Separator BorderBrush="#FF5C5C5C" Background="#FF5C5C5C" Margin="-25,2,5,2"/>
+				<MenuItem x:Name="MenExit" Header="Exit" Template="{DynamicResource MenuItemControlTemplate1}">
+					<MenuItem.Icon>
+						<Image>
+							<Image.Source>
+								<BitmapImage UriSource="/OOTPiSP_Laba1;component/Properties/Img/exit.png" />
+							</Image.Source>
+						</Image>
+					</MenuItem.Icon>
+				</MenuItem>
+			</MenuItem>
+			<MenuItem Foreground="White" Header="Select" Cursor="Arrow" Template="{DynamicResource MyMenuItemControlTemplate}">
+				<MenuItem x:Name="MenSelect" Header="Select all" Template="{DynamicResource MenuItemControlTemplate1}">
+					<MenuItem.Icon>
+						<Image>
+							<Image.Source>
+								<BitmapImage UriSource="/OOTPiSP_Laba1;component/Properties/Img/select.png" />
+							</Image.Source>
+						</Image>
+					</MenuItem.Icon>
+				</MenuItem>
+				<MenuItem x:Name="MenUnselect" Header="Unselect all" Template="{DynamicResource MenuItemControlTemplate1}">
+					<MenuItem.Icon>
+						<Image>
+							<Image.Source>
+								<BitmapImage UriSource="/OOTPiSP_Laba1;component/Properties/Img/unselect.png" />
+							</Image.Source>
+						</Image>
+					</MenuItem.Icon>
+				</MenuItem>
+				<Separator BorderBrush="#FF5C5C5C" Background="#FF5C5C5C" Margin="-25,2,5,2"/>
+				<Label Content="Selection mode" Focusable="False" Width="100" Margin="0,0,-40,0" />
+				<RadioButton x:Name="MenSingleselect" Content="Single" Focusable="False" Width="100" Margin="0,0,-40,0" Height="20" Checked="MenSingleselect_Checked" Click="MenSingleselect_OnClick"/>
+				<RadioButton x:Name="MenMultiselect" Content="Multi" Focusable="False" Width="100" Margin="0,0,-40,0" Height="20" Checked="MenMultiselect_Checked" Click="MenMultiselect_OnClick"/>
+				<RadioButton x:Name="MenExtendedselect" Content="Extended" Focusable="False" Width="100" Margin="0,0,-40,0" Height="20" Checked="MenExtendedselect_Checked" Click="MenExtendedselect_OnClick"/>
+			</MenuItem>
+			<MenuItem Foreground="White" Header="Elements" Cursor="Arrow" Template="{DynamicResource MyMenuItemControlTemplate}">
+				<MenuItem x:Name="MenDeleteSel" Header="Delete selected" Template="{DynamicResource MenuItemControlTemplate1}">
+					<MenuItem.Icon>
+						<Image>
+							<Image.Source>
+								<BitmapImage UriSource="/OOTPiSP_Laba1;component/Properties/Img/delete.png" />
+							</Image.Source>
+						</Image>
+					</MenuItem.Icon>
+				</MenuItem>
+				<MenuItem Header="Create new..." Template="{DynamicResource MenuItemControlTemplate2}">
+					<MenuItem.Icon>
+						<Image>
+							<Image.Source>
+								<BitmapImage UriSource="/OOTPiSP_Laba1;component/Properties/Img/draw.png" />
+							</Image.Source>
+						</Image>
+					</MenuItem.Icon>
+
+					<MenuItem x:Name="MenCircle" Header="Circle" Template="{DynamicResource MenuItemControlTemplate1}">
+						<MenuItem.Icon>
+							<Image>
+								<Image.Source>
+									<BitmapImage UriSource="/OOTPiSP_Laba1;component/Properties/Img/Circ.png" />
+								</Image.Source>
+							</Image>
+						</MenuItem.Icon>
+					</MenuItem>
+					<MenuItem x:Name="MenEllipse" Header="Ellipse" Template="{DynamicResource MenuItemControlTemplate1}">
+						<MenuItem.Icon>
+							<Image>
+								<Image.Source>
+									<BitmapImage UriSource="/OOTPiSP_Laba1;component/Properties/Img/Elip.png" />
+								</Image.Source>
+							</Image>
+						</MenuItem.Icon>
+					</MenuItem>
+					<MenuItem x:Name="MenLine" Header="Line" Template="{DynamicResource MenuItemControlTemplate1}">
+						<MenuItem.Icon>
+							<Image>
+								<Image.Source>
+									<BitmapImage UriSource="/OOTPiSP_Laba1;component/Properties/Img/Line.png" />
+								</Image.Source>
+							</Image>
+						</MenuItem.Icon>
+					</MenuItem>
+					<MenuItem x:Name="MenRectangle" Header="Rectangle" Template="{DynamicResource MenuItemControlTemplate1}">
+						<MenuItem.Icon>
+							<Image>
+								<Image.Source>
+									<BitmapImage UriSource="/OOTPiSP_Laba1;component/Properties/Img/Rect.png" />
+								</Image.Source>
+							</Image>
+						</MenuItem.Icon>
+					</MenuItem>
+					<MenuItem x:Name="MenSquare" Header="Square" Template="{DynamicResource MenuItemControlTemplate1}">
+						<MenuItem.Icon>
+							<Image>
+								<Image.Source>
+									<BitmapImage UriSource="/OOTPiSP_Laba1;component/Properties/Img/Squa.png" />
+								</Image.Source>
+							</Image>
+						</MenuItem.Icon>
+					</MenuItem>
+					<MenuItem x:Name="MenRombus" Header="Rombus" Template="{DynamicResource MenuItemControlTemplate1}">
+						<MenuItem.Icon>
+							<Image>
+								<Image.Source>
+									<BitmapImage UriSource="/OOTPiSP_Laba1;component/Properties/Img/Romb.png" />
+								</Image.Source>
+							</Image>
+						</MenuItem.Icon>
+					</MenuItem>
+					<MenuItem x:Name="MenTriangle" Header="Triangle" Template="{DynamicResource MenuItemControlTemplate1}">
+						<MenuItem.Icon>
+							<Image>
+								<Image.Source>
+									<BitmapImage UriSource="/OOTPiSP_Laba1;component/Properties/Img/Tria.png" />
+								</Image.Source>
+							</Image>
+						</MenuItem.Icon>
+					</MenuItem>
+					<MenuItem x:Name="MenParallelogram" Header="Parallelogram" Template="{DynamicResource MenuItemControlTemplate1}">
+						<MenuItem.Icon>
+							<Image>
+								<Image.Source>
+									<BitmapImage UriSource="/OOTPiSP_Laba1;component/Properties/Img/Para.png" />
+								</Image.Source>
+							</Image>
+						</MenuItem.Icon>
+					</MenuItem>
+				</MenuItem>
+				<MenuItem x:Name="MenEdit" Header="Edit" Template="{DynamicResource MenuItemControlTemplate1}">
+					<MenuItem.Icon>
+						<Image>
+							<Image.Source>
+								<BitmapImage UriSource="/OOTPiSP_Laba1;component/Properties/Img/draw.png" />
+							</Image.Source>
+						</Image>
+					</MenuItem.Icon>
+				</MenuItem>
+			</MenuItem>
+		</Menu>
+		<DockPanel x:Name="DpTop" HorizontalAlignment="Stretch" LastChildFill="False" Margin="0,20,0,0" VerticalAlignment="Top">
+			<Button Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.Circle">
+				<Image Source="./../Properties/img/Circ.png" />
+			</Button>
+			<Button Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.Ellipse">
+				<Image Source="./../Properties/img/Elip.png" />
+			</Button>
+			<Button Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.Line">
+				<Image Source="./../Properties/img/Line.png" />
+			</Button>
+			<Button Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.Rectangle">
+				<Image Source="./../Properties/img/Rect.png" />
+			</Button>
+			<Button Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.Square">
+				<Image Source="./../Properties/img/Squa.png" />
+			</Button>
+			<Button Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.Rombus">
+				<Image Source="./../Properties/img/Romb.png" />
+			</Button>
+			<Button Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.Triangle">
+				<Image Source="./../Properties/img/Tria.png" />
+			</Button>
+			<Button Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.Parallelogram">
+				<Image Source="./../Properties/img/Para.png" />
+			</Button>
+		</DockPanel>
+
+	</Grid>
+</Window>
