@@ -253,34 +253,39 @@ namespace OOTPiSP_Laba1.Windows {
 				FilterIndex = 1
 			};
 			if (ofd.ShowDialog() != true) return;
-			var s = new XmlSerializer(typeof(MyGraphicalObjectList));
-			Stream reader;
+			MyGraphicalObjectList objectList;
 			try {
-				reader = ofd.OpenFile();
+				objectList = Deserialize(ofd.OpenFile());
 			}
-			catch (IOException e) {
+			catch(IOException e) {
 				MessageBox.Show($"Ошибка открытия файла: \n{e}", "Error");
 				return;
 			}
-			MyGraphicalObjectList list;
-			try {
-				list = (MyGraphicalObjectList) s.Deserialize(new XmlTextReader(reader));
-			}
-			catch (InvalidOperationException e) {
+			catch(InvalidOperationException e) {
 				MessageBox.Show($"Ошибка в файле: \n{e}", "Error");
 				return;
 			}
-			finally {
-				reader.Close();
+			catch(Exception e) {
+				MessageBox.Show($"Неизвестная ошибка: \n{e}", "Error");
+				return;
 			}
 			CMain.Children.Clear();
-			for (var i = 0; i < list.Count; i++) {
-				list[i].CreateObject();
-				CMain.Children.Add(list[i].Figure);
+			for (var i = 0; i < objectList.Count; i++) {
+				objectList[i].CreateObject();
+				CMain.Children.Add(objectList[i].Figure);
 			}
-			_list = list;
+			_list = objectList;
 			LbObjects.ItemsSource = _list.ToList;
 			MessageBox.Show("Seccess!", "Seccess!");
+		}
+
+		public static MyGraphicalObjectList Deserialize(Stream stream) {
+			var s = new XmlSerializer(typeof(MyGraphicalObjectList));
+			MyGraphicalObjectList objectList;
+			using(Stream reader = stream) {
+				objectList = (MyGraphicalObjectList) s.Deserialize(new XmlTextReader(reader));
+			}
+			return objectList;
 		}
 
 		private void SaveFile(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) {

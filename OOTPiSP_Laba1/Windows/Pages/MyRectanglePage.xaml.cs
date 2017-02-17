@@ -6,7 +6,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using ColorPickerControls.Dialogs;
 
 namespace OOTPiSP_Laba1.Windows.Pages {
 	/// <summary>
