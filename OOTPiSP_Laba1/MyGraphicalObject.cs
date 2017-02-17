@@ -64,7 +64,7 @@ namespace OOTPiSP_Laba1 {
 		public string Name{ get; set; } = null;
 
 		/// <summary>
-		/// Object standart name. Used instead of Name if user dont set it.
+		/// Object standard name. Used instead of Name if user don't set it.
 		/// </summary>
 		protected abstract string StdName{ get; }
 

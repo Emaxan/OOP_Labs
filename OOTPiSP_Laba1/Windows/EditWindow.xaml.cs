@@ -13,25 +13,23 @@ namespace OOTPiSP_Laba1.Windows {
 		private double _xSt, _ySt;
 		public MyGraphicalObject[] Figure;
 
-		public EditWindow() {
-			InitializeComponent();
-		}
+		public EditWindow() { InitializeComponent(); }
 
 		private void Window_Loaded(object sender, RoutedEventArgs e) {
-			for (var i = 0; i < Figure.Length; i++) {
+			for(var i = 0; i < Figure.Length; i++) {
 				Figure[i].WritePage();
 				GLinks.ColumnDefinitions.Add(new ColumnDefinition {Width = new GridLength(1, GridUnitType.Star)});
-				if (Figure.Length == 1)
+				if(Figure.Length == 1)
 					continue;
 				var border = new Border {
-					BorderThickness = new Thickness(1),
-					BorderBrush = Brushes.Black,
-					CornerRadius = new CornerRadius(15),
-					Height = 30,
-					Width = 30,
-					Cursor = Cursors.Hand
-				};
-				if (i == 0) {
+											BorderThickness = new Thickness(1),
+											BorderBrush = Brushes.Black,
+											CornerRadius = new CornerRadius(15),
+											Height = 30,
+											Width = 30,
+											Cursor = Cursors.Hand
+										};
+				if(i == 0) {
 					_active = border;
 					border.Background = _activeBg;
 				}
@@ -39,22 +37,22 @@ namespace OOTPiSP_Laba1.Windows {
 				border.MouseLeftButtonUp += NavigationButtonClick;
 
 				border.MouseLeave += (mySender, myE) => {
-					((Border) mySender).BorderBrush = new SolidColorBrush(Colors.Black);
-					((Border) mySender).Background = Equals((Border) mySender, _active)
-						? _activeBg
-						: Brushes.Transparent;
-				};
+										((Border) mySender).BorderBrush = new SolidColorBrush(Colors.Black);
+										((Border) mySender).Background = Equals((Border) mySender, _active)
+																			? _activeBg
+																			: Brushes.Transparent;
+									};
 
 				border.MouseEnter += NavigationButton_OnMouseEnter;
 				GLinks.Children.Add(border);
 				Grid.SetColumn(border, i);
 				var label = new Label {
-					Content = i + 1,
-					HorizontalContentAlignment = HorizontalAlignment.Center,
-					VerticalContentAlignment = VerticalAlignment.Center,
-					HorizontalAlignment = HorizontalAlignment.Stretch,
-					VerticalAlignment = VerticalAlignment.Stretch
-				};
+										Content = i + 1,
+										HorizontalContentAlignment = HorizontalAlignment.Center,
+										VerticalContentAlignment = VerticalAlignment.Center,
+										HorizontalAlignment = HorizontalAlignment.Stretch,
+										VerticalAlignment = VerticalAlignment.Stretch
+									};
 				border.Child = label;
 			}
 			FMain.NavigationService.Navigate(Figure[0].Page);
@@ -68,7 +66,7 @@ namespace OOTPiSP_Laba1.Windows {
 		}
 
 		private void TopBorder_OnMouseMove(object sender, MouseEventArgs e) {
-			if (e.LeftButton != MouseButtonState.Pressed) return;
+			if(e.LeftButton != MouseButtonState.Pressed) return;
 			var x = PointToScreen(e.GetPosition(TopText)).X;
 			var y = PointToScreen(e.GetPosition(TopText)).Y;
 			Top += y - _ySt;
@@ -93,8 +91,8 @@ namespace OOTPiSP_Laba1.Windows {
 		}
 
 		private void ButtonOk_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
-			if (!BClose.Focus()) MessageBox.Show("FocusError");
-			foreach (var graphicalObject in Figure) graphicalObject.ReadPage();
+			if(!BClose.Focus()) MessageBox.Show("FocusError");
+			foreach(var graphicalObject in Figure) graphicalObject.ReadPage();
 			DialogResult = true;
 			Close();
 		}
@@ -105,7 +103,7 @@ namespace OOTPiSP_Laba1.Windows {
 		}
 
 		private void EditWindow_OnKeyUp(object sender, KeyEventArgs e) {
-			switch (e.Key) {
+			switch(e.Key) {
 				case Key.Enter:
 					ButtonOk_OnMouseLeftButtonUp(sender, new MouseButtonEventArgs(Mouse.PrimaryDevice, 0, MouseButton.Left));
 					e.Handled = true;
@@ -115,15 +113,15 @@ namespace OOTPiSP_Laba1.Windows {
 					e.Handled = true;
 					break;
 				case Key.Tab:
-					if (Figure.Length == 1) break;
-					if (Keyboard.Modifiers == ModifierKeys.Control) {
+					if(Figure.Length == 1) break;
+					if(Keyboard.Modifiers == ModifierKeys.Control) {
 						FMain.NavigationService.Navigate(
 							Figure[(Grid.GetColumn(_active) + 1)%Figure.Length].Page);
 						_active.Background = Brushes.Transparent;
 						_active = (Border) GLinks.Children[(Grid.GetColumn(_active) + 1)%GLinks.Children.Count];
 						_active.Background = _activeBg;
 					}
-					if (Keyboard.Modifiers == (ModifierKeys.Control | ModifierKeys.Shift)) {
+					if(Keyboard.Modifiers == (ModifierKeys.Control|ModifierKeys.Shift)) {
 						FMain.NavigationService.Navigate(
 							Figure[(Grid.GetColumn(_active) - 1 + Figure.Length)%Figure.Length].Page);
 						_active.Background = Brushes.Transparent;

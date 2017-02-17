@@ -80,6 +80,7 @@
     </Compile>
     <Compile Include="MyGraphicalObject.cs" />
     <Compile Include="MyLine.cs" />
+    <Compile Include="Windows\MySerializer.cs" />
     <Compile Include="Windows\Pages\MyCirclePage.xaml.cs">
       <DependentUpon>MyCirclePage.xaml</DependentUpon>
     </Compile>
