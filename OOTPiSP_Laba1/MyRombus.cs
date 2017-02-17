@@ -19,8 +19,7 @@ namespace OOTPiSP_Laba1 {
 			CreateObject();
 		}
 
-		public override string Name { get; set; } = string.Empty;
-		public override string StdName { get; set; } = "Rombus";
+		public override string StdName { get; } = "Rombus";
 
 		public float Angle {
 			get { return (float) (RadAngle1*180/PI); }
@@ -94,10 +93,6 @@ namespace OOTPiSP_Laba1 {
 			((Polygon) Figure).Stroke = new SolidColorBrush(BorderColor);
 			((Polygon) Figure).Fill = new SolidColorBrush(BgColor);
 			((Polygon) Figure).RenderTransform = tg;
-		}
-
-		public override string ToString() {
-			return $"{(Name == "" ? StdName : Name)} ({Position.X}:{Position.Y})";
 		}
 	}
 }

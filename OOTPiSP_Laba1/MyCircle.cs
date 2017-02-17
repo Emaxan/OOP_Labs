@@ -16,8 +16,7 @@ namespace OOTPiSP_Laba1 {
 			CreateObject();
 		}
 
-		public virtual string Name { get; set; } = string.Empty;
-		public virtual string StdName { get; set; } = "Circle";
+		public override string StdName { get; } = "Circle";
 
 		public int RadiusX { get; set; }
 
@@ -77,10 +76,6 @@ namespace OOTPiSP_Laba1 {
 			((Ellipse) Figure).Width = RadiusX*2;
 			((Ellipse) Figure).Height = RadiusX*2;
 			((Ellipse) Figure).RenderTransform = tg;
-		}
-
-		public override string ToString() {
-			return $"{(Name == "" ? StdName : Name)} ({Position.X}:{Position.Y})";
 		}
 	}
 }

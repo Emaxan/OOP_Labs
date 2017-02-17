@@ -28,7 +28,7 @@
 				<Grid x:Name="GLinks" Grid.Row="1"/>
 				<Frame Grid.Row="2" x:Name="FMain" NavigationUIVisibility="Hidden" Margin="0,10,0,10" IsTabStop="False"/>
 				<Border Grid.Row="3" HorizontalAlignment="Left" Width="70" Height="30" BorderThickness="1" BorderBrush="Black"
-						CornerRadius="50" Margin="50,10,0,0" MouseEnter="Button_OnMouseEnter" MouseLeave="Button_OnMouseLeave"
+						CornerRadius="50" Margin="50,10,0,0" MouseEnter="NavigationButton_OnMouseEnter" MouseLeave="NavigationButton_OnMouseLeave"
 						Cursor="Hand">
 					<Label HorizontalContentAlignment="Center" FontSize="20" Margin="-1" FontFamily="1313 MockingbiRd Lane"
 							MouseLeftButtonUp="ButtonOk_OnMouseLeftButtonUp">
@@ -36,7 +36,7 @@
 					</Label>
 				</Border>
 				<Border Grid.Row="3" HorizontalAlignment="Right" Width="70" Height="30" BorderThickness="1" BorderBrush="Black"
-						CornerRadius="50" Margin="0,10,50,0" MouseEnter="Button_OnMouseEnter" MouseLeave="Button_OnMouseLeave"
+						CornerRadius="50" Margin="0,10,50,0" MouseEnter="NavigationButton_OnMouseEnter" MouseLeave="NavigationButton_OnMouseLeave"
 						Cursor="Hand">
 					<Label HorizontalContentAlignment="Center" FontSize="20" Margin="-1" FontFamily="1313 MockingbiRd Lane"
 							MouseLeftButtonUp="ButtonCancel_OnMouseLeftButtonUp">

@@ -17,8 +17,7 @@ namespace OOTPiSP_Laba1 {
 			CreateObject();
 		}
 
-		public override string Name { get; set; } = string.Empty;
-		public override string StdName { get; set; } = "Rectangle";
+		public override string StdName { get; } = "Rectangle";
 
 		public int Length2 { get; set; }
 
@@ -79,10 +78,6 @@ namespace OOTPiSP_Laba1 {
 			((Rectangle) Figure).Width = Length1;
 			((Rectangle) Figure).Height = Length2;
 			((Rectangle) Figure).RenderTransform = tg;
-		}
-
-		public override string ToString() {
-			return $"{(Name == "" ? StdName : Name)} ({Position.X}:{Position.Y})";
 		}
 	}
 }

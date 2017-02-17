@@ -17,8 +17,7 @@ namespace OOTPiSP_Laba1 {
 			CreateObject();
 		}
 
-		public virtual string Name { get; set; } = string.Empty;
-		public virtual string StdName { get; set; } = "Line";
+		public override string StdName { get; } = "Line";
 
 		public int Length1 { get; set; }
 
@@ -78,10 +77,6 @@ namespace OOTPiSP_Laba1 {
 			((Line) Figure).Fill = new SolidColorBrush(BgColor);
 			((Line) Figure).X2 = Length1;
 			((Line) Figure).RenderTransform = tg;
-		}
-
-		public override string ToString() {
-			return $"{(Name == "" ? StdName : Name)} ({Position.X}:{Position.Y})";
 		}
 	}
 }

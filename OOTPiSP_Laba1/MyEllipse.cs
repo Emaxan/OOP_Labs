@@ -17,8 +17,7 @@ namespace OOTPiSP_Laba1 {
 			CreateObject();
 		}
 
-		public override string Name { get; set; } = string.Empty;
-		public override string StdName { get; set; } = "Ellipse";
+		public override string StdName { get; } = "Ellipse";
 
 		public int RadiusY { get; set; }
 
@@ -79,10 +78,6 @@ namespace OOTPiSP_Laba1 {
 			((Ellipse) Figure).Width = RadiusX*2;
 			((Ellipse) Figure).Height = RadiusY*2;
 			((Ellipse) Figure).RenderTransform = tg;
-		}
-
-		public override string ToString() {
-			return $"{(Name == "" ? StdName : Name)} ({Position.X}:{Position.Y})";
 		}
 	}
 }

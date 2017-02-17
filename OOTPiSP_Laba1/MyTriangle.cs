@@ -18,8 +18,7 @@ namespace OOTPiSP_Laba1 {
 			CreateObject();
 		}
 
-		public override string Name { get; set; } = string.Empty;
-		public override string StdName { get; set; } = "Triangle";
+		public override string StdName { get; } = "Triangle";
 
 		[XmlIgnore]
 		public override bool IsSelectedProp {
@@ -85,10 +84,6 @@ namespace OOTPiSP_Laba1 {
 			((Polygon) Figure).Stroke = new SolidColorBrush(BorderColor);
 			((Polygon) Figure).Fill = new SolidColorBrush(BgColor);
 			((Polygon) Figure).RenderTransform = tg;
-		}
-
-		public override string ToString() {
-			return $"{(Name == "" ? StdName : Name)} ({Position.X}:{Position.Y})";
 		}
 	}
 }

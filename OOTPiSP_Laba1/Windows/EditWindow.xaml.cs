@@ -36,7 +36,7 @@ namespace OOTPiSP_Laba1.Windows {
 					border.Background = _activeBg;
 				}
 
-				border.MouseLeftButtonUp += ButtonClick;
+				border.MouseLeftButtonUp += NavigationButtonClick;
 
 				border.MouseLeave += (mySender, myE) => {
 					((Border) mySender).BorderBrush = new SolidColorBrush(Colors.Black);
@@ -45,7 +45,7 @@ namespace OOTPiSP_Laba1.Windows {
 						: Brushes.Transparent;
 				};
 
-				border.MouseEnter += Button_OnMouseEnter;
+				border.MouseEnter += NavigationButton_OnMouseEnter;
 				GLinks.Children.Add(border);
 				Grid.SetColumn(border, i);
 				var label = new Label {
@@ -57,11 +57,10 @@ namespace OOTPiSP_Laba1.Windows {
 				};
 				border.Child = label;
 			}
-			var p = Figure[0].Page;
-			FMain.NavigationService.Navigate(p);
+			FMain.NavigationService.Navigate(Figure[0].Page);
 		}
 
-		private void ButtonClick(object sender, MouseButtonEventArgs e) {
+		private void NavigationButtonClick(object sender, MouseButtonEventArgs e) {
 			FMain.NavigationService.Navigate(Figure[Grid.GetColumn((Border) sender)].Page);
 			_active.Background = Brushes.Transparent;
 			_active = (Border) sender;
@@ -83,12 +82,12 @@ namespace OOTPiSP_Laba1.Windows {
 			_ySt = PointToScreen(e.MouseDevice.GetPosition(TopText)).Y;
 		}
 
-		private void Button_OnMouseEnter(object sender, MouseEventArgs e) {
+		private void NavigationButton_OnMouseEnter(object sender, MouseEventArgs e) {
 			((Border) sender).BorderBrush = new SolidColorBrush(Color.FromArgb(255, 50, 50, 50));
 			((Border) sender).Background = new SolidColorBrush(Color.FromArgb(150, 50, 50, 50));
 		}
 
-		private void Button_OnMouseLeave(object sender, MouseEventArgs e) {
+		private void NavigationButton_OnMouseLeave(object sender, MouseEventArgs e) {
 			((Border) sender).BorderBrush = new SolidColorBrush(Color.FromArgb(255, 0, 0, 0));
 			((Border) sender).Background = new SolidColorBrush(Color.FromArgb(0, 50, 50, 50));
 		}
