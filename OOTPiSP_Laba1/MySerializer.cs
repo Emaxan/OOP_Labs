@@ -2,7 +2,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace OOTPiSP_Laba1.Windows {
+namespace OOTPiSP_Laba1 {
 	public class MySerializer {
 		public static T Deserialize<T>(string path) {
 			using(Stream reader = new FileStream(path, FileMode.Open))

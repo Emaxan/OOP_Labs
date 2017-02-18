@@ -8,9 +8,9 @@ using static System.Math;
 namespace OOTPiSP_Laba1 {
 	[Serializable]
 	public class MyTriangle: MyParallelogram {
-		protected MyTriangle() { }
+		internal MyTriangle() { }
 
-		public MyTriangle(int x,
+		internal MyTriangle(int x,
 		                  int y,
 		                  int length1,
 		                  int length2,

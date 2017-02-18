@@ -6,9 +6,9 @@ using OOTPiSP_Laba1.Windows.Pages;
 namespace OOTPiSP_Laba1 {
 	[Serializable]
 	public class MyCircle: MyGraphicalObject {
-		protected MyCircle() { }
+		internal MyCircle() { }
 
-		public MyCircle(int x,
+		internal MyCircle(int x,
 		                int y,
 		                int radiusX,
 		                Color bgColor,

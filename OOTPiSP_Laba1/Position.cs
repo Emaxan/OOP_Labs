@@ -14,6 +14,6 @@ namespace OOTPiSP_Laba1 {
 		public int X { get; set; }
 		public int Y { get; set; }
 
-		public override string ToString() => $"({X}:{Y})";
+		public override string ToString() => $"{X}:{Y}";
 	}
 }

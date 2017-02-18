@@ -8,9 +8,9 @@ using static System.Math;
 namespace OOTPiSP_Laba1 {
 	[Serializable]
 	public class MyRombus: MyLine {
-		protected MyRombus() { }
+		internal MyRombus() { }
 
-		public MyRombus(int x,
+		internal MyRombus(int x,
 		                int y,
 		                int length1,
 		                float angle,

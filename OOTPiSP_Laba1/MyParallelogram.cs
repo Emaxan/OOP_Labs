@@ -8,9 +8,9 @@ using static System.Math;
 namespace OOTPiSP_Laba1 {
 	[Serializable]
 	public class MyParallelogram: MyRombus {
-		protected MyParallelogram() { }
+		internal MyParallelogram() { }
 
-		public MyParallelogram(int x,
+		internal MyParallelogram(int x,
 		                       int y,
 		                       int length1,
 		                       int length2,

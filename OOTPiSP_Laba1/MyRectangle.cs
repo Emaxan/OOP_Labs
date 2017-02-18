@@ -6,9 +6,9 @@ using OOTPiSP_Laba1.Windows.Pages;
 namespace OOTPiSP_Laba1 {
 	[Serializable]
 	public class MyRectangle: MySquare {
-		protected MyRectangle() { }
+		internal MyRectangle() { }
 
-		public MyRectangle(int x,
+		internal MyRectangle(int x,
 		                   int y,
 		                   int length1,
 		                   int length2,

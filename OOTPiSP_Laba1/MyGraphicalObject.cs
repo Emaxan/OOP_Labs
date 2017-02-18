@@ -68,10 +68,10 @@ namespace OOTPiSP_Laba1 {
 		/// </summary>
 		protected abstract string StdName{ get; }
 
-		[XmlIgnore]
 		/// <summary>
 		/// True, if object is selected. Otherwise false.
 		/// </summary>
+		[XmlIgnore]
 		public bool IsSelectedProp {
 			get { return _isSelected; }
 			set {

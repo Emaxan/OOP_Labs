@@ -6,9 +6,9 @@ using OOTPiSP_Laba1.Windows.Pages;
 namespace OOTPiSP_Laba1 {
 	[Serializable]
 	public class MyEllipse: MyCircle {
-		protected MyEllipse() { }
+		internal MyEllipse() { }
 
-		public MyEllipse(int x,
+		internal MyEllipse(int x,
 		                 int y,
 		                 int radiusX,
 		                 int radiusY,

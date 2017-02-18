@@ -6,9 +6,9 @@ using OOTPiSP_Laba1.Windows.Pages;
 namespace OOTPiSP_Laba1 {
 	[Serializable]
 	public class MySquare: MyLine {
-		protected MySquare() { }
+		internal MySquare() { }
 
-		public MySquare(int x,
+		internal MySquare(int x,
 		                int y,
 		                int length1,
 		                Color bgColor,

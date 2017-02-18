@@ -6,9 +6,9 @@ using OOTPiSP_Laba1.Windows.Pages;
 namespace OOTPiSP_Laba1 {
 	[Serializable]
 	public class MyLine: MyGraphicalObject {
-		protected MyLine() { }
+		internal MyLine() { }
 
-		public MyLine(int x,
+		internal MyLine(int x,
 		              int y,
 		              int length1,
 		              Color bgColor,
