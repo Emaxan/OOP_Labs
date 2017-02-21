@@ -6,16 +6,28 @@ using OOTPiSP_Laba1.Windows.Pages;
 namespace OOTPiSP_Laba1 {
 	[Serializable]
 	public class MySquare: MyLine {
-		internal MySquare() { }
+		protected MySquare() { }
 
-		internal MySquare(int x,
-		                int y,
-		                int length1,
-		                Color bgColor,
-		                Color borderColor,
-		                int borderThickness,
-		                float angleGlobal)
-			: base(x, y, length1, bgColor, borderColor, borderThickness, angleGlobal) { CreateObject(); }
+		protected MySquare(int x,
+							int y,
+							int length1,
+							Color bgColor,
+							Color borderColor,
+							int borderThickness,
+							float angleGlobal)
+			: base(x, y, length1, bgColor, borderColor, borderThickness, angleGlobal) {
+			CreateObject();
+		}
+
+		public new static MySquare CreateFigure(int x,
+												int y,
+												int length1,
+												Color bgColor,
+												Color borderColor,
+												int borderThickness,
+												float angleGlobal) {
+			return new MySquare(x, y, length1, bgColor, borderColor, borderThickness, angleGlobal);
+		}
 
 		protected override string StdName{ get; } = "Square";
 
@@ -26,13 +38,13 @@ namespace OOTPiSP_Laba1 {
 			tg.Children.Add(tt);
 			tg.Children.Add(rt);
 			Figure = new Rectangle {
-				                       Stroke = new SolidColorBrush(BorderColor),
-				                       StrokeThickness = BorderThickness,
-				                       Fill = new SolidColorBrush(BgColor),
-				                       Width = Length1,
-				                       Height = Length1,
-				                       RenderTransform = tg
-			                       };
+										Stroke = new SolidColorBrush(BorderColor),
+										StrokeThickness = BorderThickness,
+										Fill = new SolidColorBrush(BgColor),
+										Width = Length1,
+										Height = Length1,
+										RenderTransform = tg
+									};
 			Page = new MySquarePage();
 			((MySquarePage) Page).Figure = this;
 		}

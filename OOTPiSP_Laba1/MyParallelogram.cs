@@ -8,20 +8,32 @@ using static System.Math;
 namespace OOTPiSP_Laba1 {
 	[Serializable]
 	public class MyParallelogram: MyRombus {
-		internal MyParallelogram() { }
+		protected MyParallelogram() { }
 
-		internal MyParallelogram(int x,
-		                       int y,
-		                       int length1,
-		                       int length2,
-		                       float angle,
-		                       Color bgColor,
-		                       Color borderColor,
-		                       int borderThickness,
-		                       float angleGlobal)
+		protected MyParallelogram(int x,
+								int y,
+								int length1,
+								int length2,
+								float angle,
+								Color bgColor,
+								Color borderColor,
+								int borderThickness,
+								float angleGlobal)
 			: base(x, y, length1, angle, bgColor, borderColor, borderThickness, angleGlobal) {
 			Length2 = length2;
 			CreateObject();
+		}
+
+		public static MyParallelogram CreateFigure(int x,
+													int y,
+													int length1,
+													int length2,
+													float angle,
+													Color bgColor,
+													Color borderColor,
+													int borderThickness,
+													float angleGlobal) {
+			return new MyParallelogram(x, y, length1, length2, angle, bgColor, borderColor, borderThickness, angleGlobal);
 		}
 
 		protected override string StdName{ get; } = "Parallelogram";
@@ -35,18 +47,18 @@ namespace OOTPiSP_Laba1 {
 			tg.Children.Add(tt);
 			tg.Children.Add(rt);
 			Figure = new Polygon {
-				                     Points = new PointCollection {
-					                                                  new Point(0, 0),
-					                                                  new Point(Length2, 0),
-					                                                  new Point(Length1*Cos(RadAngle1) + Length2,
-						                                                  Length1*Sin(RadAngle1)),
-					                                                  new Point(Length1*Cos(RadAngle1), Length1*Sin(RadAngle1))
-				                                                  },
-				                     Stroke = new SolidColorBrush(BorderColor),
-				                     StrokeThickness = BorderThickness,
-				                     Fill = new SolidColorBrush(BgColor),
-				                     RenderTransform = tg
-			                     };
+									Points = new PointCollection {
+																	new Point(0, 0),
+																	new Point(Length2, 0),
+																	new Point(Length1*Cos(RadAngle1) + Length2,
+																		Length1*Sin(RadAngle1)),
+																	new Point(Length1*Cos(RadAngle1), Length1*Sin(RadAngle1))
+																},
+									Stroke = new SolidColorBrush(BorderColor),
+									StrokeThickness = BorderThickness,
+									Fill = new SolidColorBrush(BgColor),
+									RenderTransform = tg
+								};
 			Page = new MyParallelogramPage();
 			((MyParallelogramPage) Page).Figure = this;
 		}
@@ -58,11 +70,11 @@ namespace OOTPiSP_Laba1 {
 			tg.Children.Add(tt);
 			tg.Children.Add(rt);
 			((Polygon) Figure).Points = new PointCollection {
-				                                                new Point(0, 0),
-				                                                new Point(Length2, 0),
-				                                                new Point(Length1*Cos(RadAngle1) + Length2, Length1*Sin(RadAngle1)),
-				                                                new Point(Length1*Cos(RadAngle1), Length1*Sin(RadAngle1))
-			                                                };
+																new Point(0, 0),
+																new Point(Length2, 0),
+																new Point(Length1*Cos(RadAngle1) + Length2, Length1*Sin(RadAngle1)),
+																new Point(Length1*Cos(RadAngle1), Length1*Sin(RadAngle1))
+															};
 			((Polygon) Figure).StrokeThickness = BorderThickness;
 			((Polygon) Figure).Stroke = new SolidColorBrush(BorderColor);
 			((Polygon) Figure).Fill = new SolidColorBrush(BgColor);

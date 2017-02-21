@@ -6,18 +6,28 @@ using OOTPiSP_Laba1.Windows.Pages;
 namespace OOTPiSP_Laba1 {
 	[Serializable]
 	public class MyCircle: MyGraphicalObject {
-		internal MyCircle() { }
+		protected MyCircle() { }
 
-		internal MyCircle(int x,
-		                int y,
-		                int radiusX,
-		                Color bgColor,
-		                Color borderColor,
-		                int borderThickness,
-		                float angleGlobal)
+		protected MyCircle(int x,
+							int y,
+							int radiusX,
+							Color bgColor,
+							Color borderColor,
+							int borderThickness,
+							float angleGlobal)
 			: base(x, y, bgColor, borderColor, borderThickness, angleGlobal) {
 			RadiusX = radiusX;
 			CreateObject();
+		}
+
+		public static MyCircle CreateFigure(int x,
+											int y,
+											int radiusX,
+											Color bgColor,
+											Color borderColor,
+											int borderThickness,
+											float angleGlobal) {
+			return new MyCircle(x, y, radiusX, bgColor, borderColor, borderThickness, angleGlobal);
 		}
 
 		protected override string StdName{ get; } = "Circle";
@@ -31,13 +41,13 @@ namespace OOTPiSP_Laba1 {
 			tg.Children.Add(tt);
 			tg.Children.Add(rt);
 			Figure = new Ellipse {
-				                     Stroke = new SolidColorBrush(BorderColor),
-				                     StrokeThickness = BorderThickness,
-				                     Fill = new SolidColorBrush(BgColor),
-				                     Width = RadiusX*2,
-				                     Height = RadiusX*2,
-				                     RenderTransform = tg
-			                     };
+									Stroke = new SolidColorBrush(BorderColor),
+									StrokeThickness = BorderThickness,
+									Fill = new SolidColorBrush(BgColor),
+									Width = RadiusX*2,
+									Height = RadiusX*2,
+									RenderTransform = tg
+								};
 			Page = new MyCirclePage();
 			((MyCirclePage) Page).Figure = this;
 		}

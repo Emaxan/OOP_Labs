@@ -7,7 +7,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.Win32;
-using OOTPiSP_Laba1.Factory;
 
 namespace OOTPiSP_Laba1.Windows {
 	/// <summary>
@@ -359,7 +358,7 @@ namespace OOTPiSP_Laba1.Windows {
 		#region L2
 
 		private void DrawCirc(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) {
-			var circle = new CircleFactory().CreateFigure(0, 0, 0, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0f);
+			var circle = MyCircle.CreateFigure(0, 0, 0, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0f);
 			_list.Add(circle);
 			CMain.Children.Add(circle.Figure);
 			LbObjects.ItemsSource = _list.ToList;
@@ -371,7 +370,7 @@ namespace OOTPiSP_Laba1.Windows {
 		}
 
 		private void DrawElip(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) {
-			var ellipse = new EllipseFactory().CreateFigure(0, 0, 0, 0, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0f);
+			var ellipse = MyEllipse.CreateFigure(0, 0, 0, 0, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0f);
 			_list.Add(ellipse);
 			CMain.Children.Add(ellipse.Figure);
 			LbObjects.ItemsSource = _list.ToList;
@@ -383,7 +382,7 @@ namespace OOTPiSP_Laba1.Windows {
 		}
 
 		private void DrawLine(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) {
-			var line = new LineFactory().CreateFigure(0, 0, 0, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0f);
+			var line = MyLine.CreateFigure(0, 0, 0, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0f);
 			_list.Add(line);
 			CMain.Children.Add(line.Figure);
 			LbObjects.ItemsSource = _list.ToList;
@@ -395,7 +394,7 @@ namespace OOTPiSP_Laba1.Windows {
 		}
 
 		private void DrawRect(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) {
-			var rectangle = new RectangleFactory().CreateFigure(0, 0, 0, 0, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0f);
+			var rectangle = MyRectangle.CreateFigure(0, 0, 0, 0, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0f);
 			_list.Add(rectangle);
 			CMain.Children.Add(rectangle.Figure);
 			LbObjects.ItemsSource = _list.ToList;
@@ -407,7 +406,7 @@ namespace OOTPiSP_Laba1.Windows {
 		}
 
 		private void DrawSqua(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) {
-			var square = new SquareFactory().CreateFigure(0, 0, 0, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0f);
+			var square = MySquare.CreateFigure(0, 0, 0, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0f);
 			_list.Add(square);
 			CMain.Children.Add(square.Figure);
 			LbObjects.ItemsSource = _list.ToList;
@@ -419,7 +418,7 @@ namespace OOTPiSP_Laba1.Windows {
 		}
 
 		private void DrawRomb(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) {
-			var rombus = new RombusFactory().CreateFigure(0, 0, 0, 0f, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0f);
+			var rombus = MyRombus.CreateFigure(0, 0, 0, 0f, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0f);
 			_list.Add(rombus);
 			CMain.Children.Add(rombus.Figure);
 			LbObjects.ItemsSource = _list.ToList;
@@ -431,7 +430,7 @@ namespace OOTPiSP_Laba1.Windows {
 		}
 
 		private void DrawTria(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) {
-			var triangle = new TriangleFactory().CreateFigure(0, 0, 0, 0, 0f, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0f);
+			var triangle = MyTriangle.CreateFigure(0, 0, 0, 0, 0f, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0f);
 			_list.Add(triangle);
 			CMain.Children.Add(triangle.Figure);
 			LbObjects.ItemsSource = _list.ToList;
@@ -443,7 +442,7 @@ namespace OOTPiSP_Laba1.Windows {
 		}
 
 		private void DrawPara(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) {
-			var parallelogram = new ParallelogramFactory().CreateFigure(0, 0, 0, 0, 0f, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0f);
+			var parallelogram = MyParallelogram.CreateFigure(0, 0, 0, 0, 0, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0);
 			_list.Add(parallelogram);
 			CMain.Children.Add(parallelogram.Figure);
 			LbObjects.ItemsSource = _list.ToList;

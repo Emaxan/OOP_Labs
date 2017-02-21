@@ -6,19 +6,30 @@ using OOTPiSP_Laba1.Windows.Pages;
 namespace OOTPiSP_Laba1 {
 	[Serializable]
 	public class MyRectangle: MySquare {
-		internal MyRectangle() { }
+		protected MyRectangle() { }
 
-		internal MyRectangle(int x,
-		                   int y,
-		                   int length1,
-		                   int length2,
-		                   Color bgColor,
-		                   Color borderColor,
-		                   int borderThickness,
-		                   float angleGlobal)
+		protected MyRectangle(int x,
+							int y,
+							int length1,
+							int length2,
+							Color bgColor,
+							Color borderColor,
+							int borderThickness,
+							float angleGlobal)
 			: base(x, y, length1, bgColor, borderColor, borderThickness, angleGlobal) {
 			Length2 = length2;
 			CreateObject();
+		}
+
+		public static MyRectangle CreateFigure(int x,
+												int y,
+												int length1,
+												int length2,
+												Color bgColor,
+												Color borderColor,
+												int borderThickness,
+												float angleGlobal) {
+			return new MyRectangle(x, y, length1, length2, bgColor, borderColor, borderThickness, angleGlobal);
 		}
 
 		protected override string StdName{ get; } = "Rectangle";
@@ -32,13 +43,13 @@ namespace OOTPiSP_Laba1 {
 			tg.Children.Add(tt);
 			tg.Children.Add(rt);
 			Figure = new Rectangle {
-				                       Stroke = new SolidColorBrush(BorderColor),
-				                       StrokeThickness = BorderThickness,
-				                       Fill = new SolidColorBrush(BgColor),
-				                       Width = Length1,
-				                       Height = Length2,
-				                       RenderTransform = tg
-			                       };
+										Stroke = new SolidColorBrush(BorderColor),
+										StrokeThickness = BorderThickness,
+										Fill = new SolidColorBrush(BgColor),
+										Width = Length1,
+										Height = Length2,
+										RenderTransform = tg
+									};
 			Page = new MyRectanglePage();
 			((MyRectanglePage) Page).Figure = this;
 		}

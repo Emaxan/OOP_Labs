@@ -8,19 +8,30 @@ using static System.Math;
 namespace OOTPiSP_Laba1 {
 	[Serializable]
 	public class MyRombus: MyLine {
-		internal MyRombus() { }
+		protected MyRombus() { }
 
-		internal MyRombus(int x,
-		                int y,
-		                int length1,
-		                float angle,
-		                Color bgColor,
-		                Color borderColor,
-		                int borderThickness,
-		                float angleGlobal)
+		protected MyRombus(int x,
+							int y,
+							int length1,
+							float angle,
+							Color bgColor,
+							Color borderColor,
+							int borderThickness,
+							float angleGlobal)
 			: base(x, y, length1, bgColor, borderColor, borderThickness, angleGlobal) {
 			Angle = angle;
 			CreateObject();
+		}
+
+		public static MyRombus CreateFigure(int x,
+											int y,
+											int length1,
+											float angle,
+											Color bgColor,
+											Color borderColor,
+											int borderThickness,
+											float angleGlobal) {
+			return new MyRombus(x, y, length1, angle, bgColor, borderColor, borderThickness, angleGlobal);
 		}
 
 		protected override string StdName{ get; } = "Rombus";
@@ -39,17 +50,17 @@ namespace OOTPiSP_Laba1 {
 			tg.Children.Add(tt);
 			tg.Children.Add(rt);
 			Figure = new Polygon {
-				                     Points = new PointCollection {
-					                                                  new Point(0, 0),
-					                                                  new Point(Length1, 0),
-					                                                  new Point(Length1*(Cos(RadAngle1) + 1), Length1*Sin(RadAngle1)),
-					                                                  new Point(Length1*Cos(RadAngle1), Length1*Sin(RadAngle1))
-				                                                  },
-				                     Stroke = new SolidColorBrush(BorderColor),
-				                     StrokeThickness = BorderThickness,
-				                     Fill = new SolidColorBrush(BgColor),
-				                     RenderTransform = tg
-			                     };
+									Points = new PointCollection {
+																	new Point(0, 0),
+																	new Point(Length1, 0),
+																	new Point(Length1*(Cos(RadAngle1) + 1), Length1*Sin(RadAngle1)),
+																	new Point(Length1*Cos(RadAngle1), Length1*Sin(RadAngle1))
+																},
+									Stroke = new SolidColorBrush(BorderColor),
+									StrokeThickness = BorderThickness,
+									Fill = new SolidColorBrush(BgColor),
+									RenderTransform = tg
+								};
 			Page = new MyRombusPage();
 			((MyRombusPage) Page).Figure = this;
 		}
@@ -61,11 +72,11 @@ namespace OOTPiSP_Laba1 {
 			tg.Children.Add(tt);
 			tg.Children.Add(rt);
 			((Polygon) Figure).Points = new PointCollection {
-				                                                new Point(0, 0),
-				                                                new Point(Length1, 0),
-				                                                new Point(Length1*(Cos(RadAngle1) + 1), Length1*Sin(RadAngle1)),
-				                                                new Point(Length1*Cos(RadAngle1), Length1*Sin(RadAngle1))
-			                                                };
+																new Point(0, 0),
+																new Point(Length1, 0),
+																new Point(Length1*(Cos(RadAngle1) + 1), Length1*Sin(RadAngle1)),
+																new Point(Length1*Cos(RadAngle1), Length1*Sin(RadAngle1))
+															};
 			((Polygon) Figure).StrokeThickness = BorderThickness;
 			((Polygon) Figure).Stroke = new SolidColorBrush(BorderColor);
 			((Polygon) Figure).Fill = new SolidColorBrush(BgColor);

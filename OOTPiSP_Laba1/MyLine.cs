@@ -6,19 +6,27 @@ using OOTPiSP_Laba1.Windows.Pages;
 namespace OOTPiSP_Laba1 {
 	[Serializable]
 	public class MyLine: MyGraphicalObject {
-		internal MyLine() { }
+		protected MyLine() { }
 
-		internal MyLine(int x,
-		              int y,
-		              int length1,
-		              Color bgColor,
-		              Color borderColor,
-		              int borderThickness,
-		              float angleGlobal)
+		protected MyLine(int x,
+						int y,
+						int length1,
+						Color bgColor,
+						Color borderColor,
+						int borderThickness,
+						float angleGlobal)
 			: base(x, y, bgColor, borderColor, borderThickness, angleGlobal) {
 			Length1 = length1;
 			CreateObject();
 		}
+
+		public static MyLine CreateFigure(int x,
+										int y,
+										int length1,
+										Color bgColor,
+										Color borderColor,
+										int borderThickness,
+										float angleGlobal) { return new MyLine(x, y, length1, bgColor, borderColor, borderThickness, angleGlobal); }
 
 		protected override string StdName{ get; } = "Line";
 
@@ -31,15 +39,15 @@ namespace OOTPiSP_Laba1 {
 			tg.Children.Add(tt);
 			tg.Children.Add(rt);
 			Figure = new Line {
-				                  Stroke = new SolidColorBrush(BorderColor),
-				                  StrokeThickness = BorderThickness,
-				                  Fill = new SolidColorBrush(BgColor),
-				                  X1 = 0,
-				                  Y1 = 0,
-				                  X2 = Length1,
-				                  Y2 = 0,
-				                  RenderTransform = tg
-			                  };
+								Stroke = new SolidColorBrush(BorderColor),
+								StrokeThickness = BorderThickness,
+								Fill = new SolidColorBrush(BgColor),
+								X1 = 0,
+								Y1 = 0,
+								X2 = Length1,
+								Y2 = 0,
+								RenderTransform = tg
+							};
 			Page = new MyLinePage();
 			((MyLinePage) Page).Figure = this;
 		}

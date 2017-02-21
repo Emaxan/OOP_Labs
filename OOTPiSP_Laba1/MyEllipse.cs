@@ -6,19 +6,30 @@ using OOTPiSP_Laba1.Windows.Pages;
 namespace OOTPiSP_Laba1 {
 	[Serializable]
 	public class MyEllipse: MyCircle {
-		internal MyEllipse() { }
+		protected MyEllipse() { }
 
-		internal MyEllipse(int x,
-		                 int y,
-		                 int radiusX,
-		                 int radiusY,
-		                 Color bgColor,
-		                 Color borderColor,
-		                 int borderThickness,
-		                 float angleGlobal)
+		protected MyEllipse(int x,
+							int y,
+							int radiusX,
+							int radiusY,
+							Color bgColor,
+							Color borderColor,
+							int borderThickness,
+							float angleGlobal)
 			: base(x, y, radiusX, bgColor, borderColor, borderThickness, angleGlobal) {
 			RadiusY = radiusY;
 			CreateObject();
+		}
+
+		public static MyEllipse CreateFigure(int x,
+											int y,
+											int radiusX,
+											int radiusY,
+											Color bgColor,
+											Color borderColor,
+											int borderThickness,
+											float angleGlobal) {
+			return new MyEllipse(x, y, radiusX, radiusY, bgColor, borderColor, borderThickness, angleGlobal);
 		}
 
 		protected override string StdName{ get; } = "Ellipse";
@@ -32,13 +43,13 @@ namespace OOTPiSP_Laba1 {
 			tg.Children.Add(tt);
 			tg.Children.Add(rt);
 			Figure = new Ellipse {
-				                     Stroke = new SolidColorBrush(BorderColor),
-				                     StrokeThickness = BorderThickness,
-				                     Fill = new SolidColorBrush(BgColor),
-				                     Width = RadiusX*2,
-				                     Height = RadiusY*2,
-				                     RenderTransform = tg
-			                     };
+									Stroke = new SolidColorBrush(BorderColor),
+									StrokeThickness = BorderThickness,
+									Fill = new SolidColorBrush(BgColor),
+									Width = RadiusX*2,
+									Height = RadiusY*2,
+									RenderTransform = tg
+								};
 			Page = new MyEllipsePage();
 			((MyEllipsePage) Page).Figure = this;
 		}
