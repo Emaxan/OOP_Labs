@@ -68,6 +68,7 @@
     <Compile Include="MySquare.cs" />
     <Compile Include="MyTriangle.cs" />
     <Compile Include="Position.cs" />
+    <Compile Include="Singleton\ColorPicker.cs" />
     <Compile Include="Windows\EditWindow.xaml.cs">
       <DependentUpon>EditWindow.xaml</DependentUpon>
     </Compile>
