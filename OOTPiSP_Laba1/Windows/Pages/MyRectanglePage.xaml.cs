@@ -78,11 +78,8 @@ namespace OOTPiSP_Laba1.Windows.Pages {
 		}
 
 		private void Color_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
-			dynamic picker = ColorPicker.GetInstance();
-			if (picker == null)
-				return;
-			picker.InitialColor = ((SolidColorBrush)((Border)sender).Background).Color;
-			Color? c = picker.ShowDialog() == true ? picker.SelectedColor : null;
+			var picker = ColorPicker.GetInstance();
+			Color? c = picker.PickColor(((SolidColorBrush)((Border)sender).Background).Color);
 			if (c != null)
 				((Border)sender).Background = new SolidColorBrush((Color)c);
 		}

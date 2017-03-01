@@ -4,9 +4,16 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
-using Microsoft.Win32;
+using Application = System.Windows.Application;
+using MessageBox = System.Windows.MessageBox;
+using MessageBoxOptions = System.Windows.MessageBoxOptions;
+using MouseEventArgs = System.Windows.Input.MouseEventArgs;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
+using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
+using SelectionMode = System.Windows.Controls.SelectionMode;
 
 namespace OOTPiSP_Laba1.Windows {
 	/// <summary>
@@ -357,8 +364,8 @@ namespace OOTPiSP_Laba1.Windows {
 
 		#region L2
 
-		private void DrawCirc(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) {
-			var circle = MyCircle.CreateFigure(0, 0, 0, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0f);
+		private void DrawCirc(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) { 
+		var circle = MyCircle.CreateFigure(0, 0, 0, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0f);
 			_list.Add(circle);
 			CMain.Children.Add(circle.Figure);
 			LbObjects.ItemsSource = _list.ToList;
