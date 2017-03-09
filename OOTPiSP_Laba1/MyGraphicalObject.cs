@@ -3,12 +3,14 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace OOTPiSP_Laba1 {
 	[Serializable]
 	public abstract class MyGraphicalObject {
-		protected MyGraphicalObject() { }
 
+		[JsonConstructor]
 		protected MyGraphicalObject(int x, int y, Color bgColor, Color borderColor, int borderThickness, float angleGlobal) {
 			Position = new Position(x, y);
 			BgColor = bgColor;
@@ -19,45 +21,50 @@ namespace OOTPiSP_Laba1 {
 		}
 
 		[NonSerialized]
-		[XmlIgnore]
 		public UIElement Figure;
 
 		[NonSerialized]
-		[XmlIgnore]
 		public Page Page;
 
 		private bool _isSelected;
 
+		[JsonProperty]
 		/// <summary>
 		/// Hash of the object
 		/// </summary>
 		public int Hash{ get; set; }
 
+		[JsonProperty]
 		/// <summary>
 		/// Angle from start position
 		/// </summary>
 		public float AngleGlobal{ get; set; }
 
+		[JsonProperty]
 		/// <summary>
 		/// Position of the object
 		/// </summary>
 		public Position Position{ get; set; }
 
+		[JsonProperty]
 		/// <summary>
 		/// Background color
 		/// </summary>
 		public Color BgColor{ get; set; }
 
+		[JsonProperty]
 		/// <summary>
 		/// Color of the object border
 		/// </summary>
 		public Color BorderColor{ get; set; }
 
+		[JsonProperty]
 		/// <summary>
 		/// Thickness of the object border
 		/// </summary>
 		public int BorderThickness{ get; set; }
 
+		[JsonProperty]
 		/// <summary>
 		/// Object name
 		/// </summary>
@@ -71,7 +78,6 @@ namespace OOTPiSP_Laba1 {
 		/// <summary>
 		/// True, if object is selected. Otherwise false.
 		/// </summary>
-		[XmlIgnore]
 		public bool IsSelectedProp {
 			get { return _isSelected; }
 			set {

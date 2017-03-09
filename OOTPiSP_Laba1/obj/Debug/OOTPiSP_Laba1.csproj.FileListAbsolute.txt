@@ -130,3 +130,5 @@ D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\OOTPiSP_Laba1\obj\Debug\Windows\Pages\MySq
 D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\OOTPiSP_Laba1\obj\Debug\OOTPiSP_Laba1.g.resources
 D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\OOTPiSP_Laba1\obj\Debug\OOTPiSP_Laba1.Properties.Resources.resources
 D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\OOTPiSP_Laba1\obj\Debug\OOTPiSP_Laba1.csproj.GenerateResource.Cache
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\OOTPiSP_Laba1\bin\Debug\Newtonsoft.Json.dll
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\OOTPiSP_Laba1\bin\Debug\Newtonsoft.Json.xml

@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
 using OOTPiSP_Laba1.Windows.Pages;
 
 namespace OOTPiSP_Laba1 {
 	[Serializable]
 	public class MyRectangle: MySquare {
-		protected MyRectangle() { }
 
+		[JsonConstructor]
 		protected MyRectangle(int x,
 							int y,
 							int length1,
@@ -33,7 +34,7 @@ namespace OOTPiSP_Laba1 {
 		}
 
 		protected override string StdName{ get; } = "Rectangle";
-
+		[JsonProperty]
 		public int Length2{ get; set; }
 
 		public override void CreateObject() {

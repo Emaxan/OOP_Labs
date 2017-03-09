@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
 using OOTPiSP_Laba1.Windows.Pages;
 
 namespace OOTPiSP_Laba1 {
 	[Serializable]
 	public class MyCircle: MyGraphicalObject {
-		protected MyCircle() { }
 
+		[JsonConstructor]
 		protected MyCircle(int x,
 							int y,
 							int radiusX,
@@ -32,6 +33,7 @@ namespace OOTPiSP_Laba1 {
 
 		protected override string StdName{ get; } = "Circle";
 
+		[JsonProperty]
 		public int RadiusX{ get; set; }
 
 		public override void CreateObject() {

@@ -2,14 +2,15 @@
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
 using OOTPiSP_Laba1.Windows.Pages;
 using static System.Math;
 
 namespace OOTPiSP_Laba1 {
 	[Serializable]
 	public class MyRombus: MyLine {
-		protected MyRombus() { }
 
+		[JsonConstructor]
 		protected MyRombus(int x,
 							int y,
 							int length1,
@@ -36,6 +37,7 @@ namespace OOTPiSP_Laba1 {
 
 		protected override string StdName{ get; } = "Rombus";
 
+		[JsonProperty]
 		public float Angle {
 			get { return (float) (RadAngle1*180/PI); }
 			set { RadAngle1 = (float) (PI*(value > 90? 180 - value : value)/180); }

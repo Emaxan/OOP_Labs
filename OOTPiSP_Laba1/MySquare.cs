@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
 using OOTPiSP_Laba1.Windows.Pages;
 
 namespace OOTPiSP_Laba1 {
 	[Serializable]
 	public class MySquare: MyLine {
-		protected MySquare() { }
 
+		[JsonConstructor]
 		protected MySquare(int x,
 							int y,
 							int length1,

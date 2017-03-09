@@ -267,7 +267,7 @@ namespace OOTPiSP_Laba1.Windows {
 			var ofd = new OpenFileDialog {
 											Title = "Open from file...",
 											InitialDirectory = @"C:\",
-											Filter = "XML files(*.xml)|*.xml|All files(*.*)|*.*",
+											Filter = "Bson files(*.bson)|*.bson|All files(*.*)|*.*",
 											FilterIndex = 1
 										};
 			if(ofd.ShowDialog() != true) return;
@@ -288,7 +288,7 @@ namespace OOTPiSP_Laba1.Windows {
 				return;
 			}
 			CMain.Children.Clear();
-			for(var i = 0; i < objectList.Count; i++) {
+			for(var i = 0; i < objectList.MyCount; i++) {
 				objectList[i].CreateObject();
 				CMain.Children.Add(objectList[i].Figure);
 			}
@@ -301,7 +301,7 @@ namespace OOTPiSP_Laba1.Windows {
 			var sfd = new SaveFileDialog {
 											Title = "Save to file...",
 											InitialDirectory = @"C:\",
-											Filter = "XML files(*.xml)|*.xml|All files(*.*)|*.*",
+											Filter = "Bson files(*.bson)|*.bson|All files(*.*)|*.*",
 											FilterIndex = 1
 										};
 

@@ -1,8 +1,11 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace OOTPiSP_Laba1 {
 	[Serializable]
 	public class Position {
+
+		[JsonConstructor]
 		public Position() {
 		}
 
@@ -10,8 +13,9 @@ namespace OOTPiSP_Laba1 {
 			X = x;
 			Y = y;
 		}
-
+		[JsonProperty]
 		public int X { get; set; }
+		[JsonProperty]
 		public int Y { get; set; }
 
 		public override string ToString() => $"{X}:{Y}";

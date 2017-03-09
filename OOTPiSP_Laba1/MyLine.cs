@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
 using OOTPiSP_Laba1.Windows.Pages;
 
 namespace OOTPiSP_Laba1 {
 	[Serializable]
 	public class MyLine: MyGraphicalObject {
-		protected MyLine() { }
 
+		[JsonConstructor]
 		protected MyLine(int x,
 						int y,
 						int length1,
@@ -29,7 +30,7 @@ namespace OOTPiSP_Laba1 {
 										float angleGlobal) { return new MyLine(x, y, length1, bgColor, borderColor, borderThickness, angleGlobal); }
 
 		protected override string StdName{ get; } = "Line";
-
+		[JsonProperty]
 		public int Length1{ get; set; }
 
 		public override void CreateObject() {

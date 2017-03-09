@@ -2,14 +2,15 @@
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
 using OOTPiSP_Laba1.Windows.Pages;
 using static System.Math;
 
 namespace OOTPiSP_Laba1 {
 	[Serializable]
 	public class MyTriangle: MyParallelogram {
-		protected MyTriangle() { }
 
+		[JsonConstructor]
 		protected MyTriangle(int x,
 							int y,
 							int length1,
