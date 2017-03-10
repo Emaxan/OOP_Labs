@@ -1,36 +1,23 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Serialization;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
 
 namespace OOTPiSP_Laba1 {
 	[Serializable]
 	[JsonArray]
 	public class MyGraphicalObjectList: ICollection<MyGraphicalObject> {
 		public int MyCount;
-
-		/*[XmlArray]
-		[XmlArrayItem(Type = typeof(MyLine)),
-		XmlArrayItem(Type = typeof(MyCircle)),
-		XmlArrayItem(Type = typeof(MyEllipse)),
-		XmlArrayItem(Type = typeof(MyRombus)),
-		XmlArrayItem(Type = typeof(MyRectangle)),
-		XmlArrayItem(Type = typeof(MyTriangle)),
-		XmlArrayItem(Type = typeof(MyParallelogram)),
-		XmlArrayItem(Type = typeof(MySquare))]*/
+		
 		public MyGraphicalObject[] Objects = new MyGraphicalObject[0];
 
 		public MyGraphicalObject this[int index] {
 			get { return Objects[index]; }
-			//set { Objects[index] = value; }
+			set { Objects[index] = value; }
 		}
 
-		public IEnumerable<MyGraphicalObject> ToList => Objects.ToList();
+		public IEnumerable<MyGraphicalObject> ToList => Objects.ToList(); 
 
 		public void Add(MyGraphicalObject obj) {
 			Array.Resize(ref Objects, MyCount + 1);

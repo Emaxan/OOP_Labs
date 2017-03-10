@@ -4,9 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using OOTPiSP_Laba1.Interfaces;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 using MessageBoxOptions = System.Windows.MessageBoxOptions;
@@ -60,13 +61,18 @@ namespace OOTPiSP_Laba1.Windows {
 
 		private void ObjectsList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
 			foreach(MyGraphicalObject o in e.AddedItems) {
-				o.IsSelectedProp = true;
+				if(o is ISelectable) ((ISelectable) o).Select();
+				else {
+					MessageBox.Show("You can't select this object.");
+				}
 				o.Update();
 			}
 			foreach(MyGraphicalObject o in e.RemovedItems) {
-				o.IsSelectedProp = false;
+				if(o is ISelectable) ((ISelectable)o).Unselect();
+				else MessageBox.Show("You can't unselect this object.");
 				o.Update();
 			}
+			LbObjects.ItemsSource = _list.ToList;
 		}
 
 		private void CMain_MouseLeftButtonDown(object sender, MouseButtonEventArgs e) {
@@ -113,7 +119,7 @@ namespace OOTPiSP_Laba1.Windows {
 				graphicalObject.Position.Y += yEnd - _yStart;
 				graphicalObject.Update();
 			}
-			LbObjects.ItemsSource = _list.ToList;
+			LbObjects.ItemsSource = _list.ToList();
 			_xStart = xEnd;
 			_yStart = yEnd;
 		}
@@ -139,6 +145,21 @@ namespace OOTPiSP_Laba1.Windows {
 			}
 		}
 
+		private void Create(MyGraphicalObject obj) {
+			var edt = new EditWindow {
+				Figure = new[] {obj},
+				Owner = this
+			};
+			edt.ShowDialog();
+			LbObjects.ItemsSource = _list.ToList();
+			_result = edt.DialogResult == true;
+		}
+
+		private void ObjectChanged(object sender, MouseButtonEventArgs e) {
+			if(!Keyboard.IsKeyDown(Key.LeftCtrl) && !Keyboard.IsKeyDown(Key.LeftCtrl)) LbObjects.UnselectAll();
+			LbObjects.ItemsSource = _list.ToList;
+		}
+
 		#region RoutedEvents
 
 		private void SetHotKeys() {
@@ -154,7 +175,7 @@ namespace OOTPiSP_Laba1.Windows {
 			var save = new KeyGesture(Key.S, ModifierKeys.Control);
 			MenSave.InputGestureText = "Ctrl + S";
 			MenSave.Command = Save;
-			MenSave.CommandParameter = _list;
+			MenSave.CommandParameter = _list.ToList();
 			Save.InputGestures.Add(save);
 			var cmdSave = new CommandBinding(Save, SaveFile);
 			CommandBindings.Add(cmdSave);
@@ -293,7 +314,7 @@ namespace OOTPiSP_Laba1.Windows {
 				CMain.Children.Add(objectList[i].Figure);
 			}
 			_list = objectList;
-			LbObjects.ItemsSource = _list.ToList;
+			LbObjects.ItemsSource = _list.ToList();
 			MessageBox.Show("Success!", "Success!");
 		}
 
@@ -343,7 +364,7 @@ namespace OOTPiSP_Laba1.Windows {
 				CMain.Children.Remove(_list.GetHash(graphicalObject.Hash).Figure);
 				_list.RemoveHash(graphicalObject.Hash);
 			}
-			LbObjects.ItemsSource = _list.ToList;
+			LbObjects.ItemsSource = _list.ToList();
 		}
 
 		private void Edit(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) {
@@ -353,7 +374,7 @@ namespace OOTPiSP_Laba1.Windows {
 										Owner = this
 									};
 			edt.ShowDialog();
-			LbObjects.ItemsSource = _list.ToList;
+			LbObjects.ItemsSource = _list.ToList();
 			_result = edt.DialogResult == true;
 		}
 
@@ -366,98 +387,114 @@ namespace OOTPiSP_Laba1.Windows {
 
 		private void DrawCirc(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) { 
 		var circle = MyCircle.CreateFigure(0, 0, 0, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0f);
+			circle.ObjectChanged += ObjectChanged;
 			_list.Add(circle);
 			CMain.Children.Add(circle.Figure);
-			LbObjects.ItemsSource = _list.ToList;
-			LbObjects.SelectedIndex = LbObjects.Items.Count - 1;
-			Edit(sender, executedRoutedEventArgs);
+			LbObjects.ItemsSource = _list.ToList();
+			//LbObjects.SelectedIndex = LbObjects.Items.Count - 1;
+			//Edit(sender, executedRoutedEventArgs);
+			Create(_list.Objects.Last());
 			if(!_result) _list.RemoveHash(circle.Hash);
 			UnselectAll(sender, executedRoutedEventArgs);
-			LbObjects.ItemsSource = _list.ToList;
+			LbObjects.ItemsSource = _list.ToList();
 		}
 
 		private void DrawElip(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) {
 			var ellipse = MyEllipse.CreateFigure(0, 0, 0, 0, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0f);
+			ellipse.ObjectChanged += ObjectChanged;
 			_list.Add(ellipse);
 			CMain.Children.Add(ellipse.Figure);
-			LbObjects.ItemsSource = _list.ToList;
-			LbObjects.SelectedIndex = LbObjects.Items.Count - 1;
-			Edit(sender, executedRoutedEventArgs);
-			if(!_result) _list.RemoveHash(ellipse.Hash);
+			LbObjects.ItemsSource = _list.ToList();
+			//LbObjects.SelectedIndex = LbObjects.Items.Count - 1;
+			//Edit(sender, executedRoutedEventArgs);
+			Create(_list.Objects.Last());
+			if (!_result) _list.RemoveHash(ellipse.Hash);
 			UnselectAll(sender, executedRoutedEventArgs);
-			LbObjects.ItemsSource = _list.ToList;
+			LbObjects.ItemsSource = _list.ToList();
 		}
 
 		private void DrawLine(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) {
 			var line = MyLine.CreateFigure(0, 0, 0, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0f);
+			line.ObjectChanged += ObjectChanged;
 			_list.Add(line);
 			CMain.Children.Add(line.Figure);
-			LbObjects.ItemsSource = _list.ToList;
-			LbObjects.SelectedIndex = LbObjects.Items.Count - 1;
-			Edit(sender, executedRoutedEventArgs);
-			if(!_result) _list.RemoveHash(line.Hash);
+			LbObjects.ItemsSource = _list.ToList();
+			//LbObjects.SelectedIndex = LbObjects.Items.Count - 1;
+			//Edit(sender, executedRoutedEventArgs);
+			Create(_list.Objects.Last());
+			if (!_result) _list.RemoveHash(line.Hash);
 			UnselectAll(sender, executedRoutedEventArgs);
-			LbObjects.ItemsSource = _list.ToList;
+			LbObjects.ItemsSource = _list.ToList();
 		}
-
+		
 		private void DrawRect(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) {
 			var rectangle = MyRectangle.CreateFigure(0, 0, 0, 0, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0f);
+			rectangle.ObjectChanged += ObjectChanged;
 			_list.Add(rectangle);
 			CMain.Children.Add(rectangle.Figure);
-			LbObjects.ItemsSource = _list.ToList;
-			LbObjects.SelectedIndex = LbObjects.Items.Count - 1;
-			Edit(sender, executedRoutedEventArgs);
-			if(!_result) _list.RemoveHash(rectangle.Hash);
+			LbObjects.ItemsSource = _list.ToList();
+			//LbObjects.SelectedIndex = LbObjects.Items.Count - 1;
+			//Edit(sender, executedRoutedEventArgs);
+			Create(_list.Objects.Last());
+			if (!_result) _list.RemoveHash(rectangle.Hash);
 			UnselectAll(sender, executedRoutedEventArgs);
-			LbObjects.ItemsSource = _list.ToList;
+			LbObjects.ItemsSource = _list.ToList();
 		}
 
 		private void DrawSqua(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) {
 			var square = MySquare.CreateFigure(0, 0, 0, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0f);
+			square.ObjectChanged += ObjectChanged;
 			_list.Add(square);
 			CMain.Children.Add(square.Figure);
-			LbObjects.ItemsSource = _list.ToList;
-			LbObjects.SelectedIndex = LbObjects.Items.Count - 1;
-			Edit(sender, executedRoutedEventArgs);
-			if(!_result) _list.RemoveHash(square.Hash);
+			LbObjects.ItemsSource = _list.ToList();
+			//LbObjects.SelectedIndex = LbObjects.Items.Count - 1;
+			//Edit(sender, executedRoutedEventArgs);
+			Create(_list.Objects.Last());
+			if (!_result) _list.RemoveHash(square.Hash);
 			UnselectAll(sender, executedRoutedEventArgs);
-			LbObjects.ItemsSource = _list.ToList;
+			LbObjects.ItemsSource = _list.ToList();
 		}
 
 		private void DrawRomb(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) {
 			var rombus = MyRombus.CreateFigure(0, 0, 0, 0f, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0f);
+			rombus.ObjectChanged += ObjectChanged;
 			_list.Add(rombus);
 			CMain.Children.Add(rombus.Figure);
-			LbObjects.ItemsSource = _list.ToList;
-			LbObjects.SelectedIndex = LbObjects.Items.Count - 1;
-			Edit(sender, executedRoutedEventArgs);
-			if(!_result) _list.RemoveHash(rombus.Hash);
+			LbObjects.ItemsSource = _list.ToList();
+			//LbObjects.SelectedIndex = LbObjects.Items.Count - 1;
+			//Edit(sender, executedRoutedEventArgs);
+			Create(_list.Objects.Last());
+			if (!_result) _list.RemoveHash(rombus.Hash);
 			UnselectAll(sender, executedRoutedEventArgs);
-			LbObjects.ItemsSource = _list.ToList;
+			LbObjects.ItemsSource = _list.ToList();
 		}
 
 		private void DrawTria(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) {
 			var triangle = MyTriangle.CreateFigure(0, 0, 0, 0, 0f, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0f);
+			triangle.ObjectChanged += ObjectChanged;
 			_list.Add(triangle);
 			CMain.Children.Add(triangle.Figure);
-			LbObjects.ItemsSource = _list.ToList;
-			LbObjects.SelectedIndex = LbObjects.Items.Count - 1;
-			Edit(sender, executedRoutedEventArgs);
-			if(!_result) _list.RemoveHash(triangle.Hash);
+			LbObjects.ItemsSource = _list.ToList();
+			//LbObjects.SelectedIndex = LbObjects.Items.Count - 1;
+			//Edit(sender, executedRoutedEventArgs);
+			Create(_list.Objects.Last());
+			if (!_result) _list.RemoveHash(triangle.Hash);
 			UnselectAll(sender, executedRoutedEventArgs);
-			LbObjects.ItemsSource = _list.ToList;
+			LbObjects.ItemsSource = _list.ToList();
 		}
 
 		private void DrawPara(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) {
 			var parallelogram = MyParallelogram.CreateFigure(0, 0, 0, 0, 0, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0);
+			parallelogram.ObjectChanged += ObjectChanged;
 			_list.Add(parallelogram);
 			CMain.Children.Add(parallelogram.Figure);
-			LbObjects.ItemsSource = _list.ToList;
-			LbObjects.SelectedIndex = LbObjects.Items.Count - 1;
-			Edit(sender, executedRoutedEventArgs);
-			if(!_result) _list.RemoveHash(parallelogram.Hash);
+			LbObjects.ItemsSource = _list.ToList();
+			//LbObjects.SelectedIndex = LbObjects.Items.Count - 1;
+			//Edit(sender, executedRoutedEventArgs);
+			Create(_list.Objects.Last());
+			if (!_result) _list.RemoveHash(parallelogram.Hash);
 			UnselectAll(sender, executedRoutedEventArgs);
-			LbObjects.ItemsSource = _list.ToList;
+			LbObjects.ItemsSource = _list.ToList();
 		}
 
 		#endregion

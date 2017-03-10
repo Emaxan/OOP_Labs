@@ -64,6 +64,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Interfaces\IEditable.cs" />
+    <Compile Include="Interfaces\ISelectable.cs" />
     <Compile Include="MyCircle.cs" />
     <Compile Include="MyEllipse.cs" />
     <Compile Include="MyGraphicalObjectList.cs" />
@@ -72,10 +74,6 @@
     <Compile Include="MyRombus.cs" />
     <Compile Include="MySquare.cs" />
     <Compile Include="MyTriangle.cs" />
-    <Compile Include="netfx\System\BsonSerializer.cs" />
-    <Compile Include="netfx\System\Guard.cs" />
-    <Compile Include="netfx\System\ISerializer.cs" />
-    <Compile Include="netfx\System\SerializerExtensions.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Singleton\ColorPicker.cs" />
     <Compile Include="Windows\EditWindow.xaml.cs">

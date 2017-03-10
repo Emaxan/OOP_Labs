@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Newtonsoft.Json;
+using OOTPiSP_Laba1.Interfaces;
 using OOTPiSP_Laba1.Windows.Pages;
 using static System.Math;
 
@@ -55,6 +56,13 @@ namespace OOTPiSP_Laba1 {
 									StrokeThickness = BorderThickness,
 									Fill = new SolidColorBrush(BgColor),
 									RenderTransform = tg
+								};
+			Figure.MouseDown += (sender, args) => {
+									if(!(this is ISelectable))
+										return;
+									((ISelectable) this).Select();
+									Update();
+									ObjectChangedFunc(this, args);
 								};
 			Page = new MyParallelogramPage();
 			((MyParallelogramPage) Page).Figure = this;

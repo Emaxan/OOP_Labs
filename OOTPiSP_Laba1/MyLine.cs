@@ -2,12 +2,12 @@
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Newtonsoft.Json;
+using OOTPiSP_Laba1.Interfaces;
 using OOTPiSP_Laba1.Windows.Pages;
 
 namespace OOTPiSP_Laba1 {
 	[Serializable]
-	public class MyLine: MyGraphicalObject {
-
+	public class MyLine: MyGraphicalObject, ISelectable {
 		[JsonConstructor]
 		protected MyLine(int x,
 						int y,
@@ -49,6 +49,13 @@ namespace OOTPiSP_Laba1 {
 								Y2 = 0,
 								RenderTransform = tg
 							};
+			Figure.MouseDown += (sender, args) => {
+									if(!(this is ISelectable))
+										return;
+									((ISelectable) this).Select();
+									Update();
+									ObjectChangedFunc(this, args);
+								};
 			Page = new MyLinePage();
 			((MyLinePage) Page).Figure = this;
 		}
@@ -80,5 +87,7 @@ namespace OOTPiSP_Laba1 {
 		}
 
 		public override void WritePage() => ((MyLinePage) Page).Figure = this;
+		public void Select() { IsSelectedProp = true; }
+		public void Unselect() { IsSelectedProp = false; }
 	}
 }

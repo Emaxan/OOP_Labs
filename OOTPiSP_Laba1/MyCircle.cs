@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Newtonsoft.Json;
+using OOTPiSP_Laba1.Interfaces;
 using OOTPiSP_Laba1.Windows.Pages;
 
 namespace OOTPiSP_Laba1 {
@@ -49,6 +51,13 @@ namespace OOTPiSP_Laba1 {
 									Width = RadiusX*2,
 									Height = RadiusX*2,
 									RenderTransform = tg
+								};
+			Figure.MouseDown += (sender, args) => {
+									if(!(this is ISelectable))
+										return;
+									((ISelectable) this).Select();
+									Update();
+									ObjectChangedFunc(this, args);
 								};
 			Page = new MyCirclePage();
 			((MyCirclePage) Page).Figure = this;

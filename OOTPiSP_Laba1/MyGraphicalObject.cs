@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
-using System.Xml.Serialization;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+using OOTPiSP_Laba1.Interfaces;
 
 namespace OOTPiSP_Laba1 {
 	[Serializable]
-	public abstract class MyGraphicalObject {
+	public abstract class MyGraphicalObject/*:ISelectable*/ {
+
+		public event EventHandler<MouseButtonEventArgs> ObjectChanged;
 
 		[JsonConstructor]
 		protected MyGraphicalObject(int x, int y, Color bgColor, Color borderColor, int borderThickness, float angleGlobal) {
@@ -86,6 +88,8 @@ namespace OOTPiSP_Laba1 {
 			}
 		}
 
+		public bool IsSelectable => this is ISelectable;
+
 		/// <summary>
 		/// Read data from page to object data
 		/// </summary>
@@ -106,6 +110,11 @@ namespace OOTPiSP_Laba1 {
 		/// </summary>
 		public abstract void Update();
 
+		public void ObjectChangedFunc(object sender, MouseButtonEventArgs args) => ObjectChanged?.Invoke(sender, args);
+
 		public override string ToString() => $"{(Name == ""? StdName : Name)} ({Position})";
+
+		//public void Select() { IsSelectedProp = true; }
+		//public void Unselect() { IsSelectedProp = false; }
 	}
 }

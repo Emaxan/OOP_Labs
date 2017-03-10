@@ -2,11 +2,12 @@
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Newtonsoft.Json;
+using OOTPiSP_Laba1.Interfaces;
 using OOTPiSP_Laba1.Windows.Pages;
 
 namespace OOTPiSP_Laba1 {
 	[Serializable]
-	public class MyEllipse: MyCircle {
+	public class MyEllipse: MyCircle, ISelectable {
 
 		[JsonConstructor]
 		protected MyEllipse(int x,
@@ -52,6 +53,14 @@ namespace OOTPiSP_Laba1 {
 									Height = RadiusY*2,
 									RenderTransform = tg
 								};
+
+			Figure.MouseDown += (sender, args) => {
+									if(!(this is ISelectable))
+										return;
+									((ISelectable) this).Select();
+									Update();
+									ObjectChangedFunc(this, args);
+								};
 			Page = new MyEllipsePage();
 			((MyEllipsePage) Page).Figure = this;
 		}
@@ -86,5 +95,7 @@ namespace OOTPiSP_Laba1 {
 		}
 
 		public override void WritePage() => ((MyEllipsePage) Page).Figure = this;
+		public void Select() { IsSelectedProp = true; }
+		public void Unselect() { IsSelectedProp = false; }
 	}
 }

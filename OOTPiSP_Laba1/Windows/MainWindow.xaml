@@ -4,6 +4,7 @@
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:windows="clr-namespace:OOTPiSP_Laba1.Windows"
+		xmlns:mgo="clr-namespace:OOTPiSP_Laba1"
 		mc:Ignorable="d"
 		Title="FigureMax" Height="768" Width="1366" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
 		WindowState="Normal" MouseLeftButtonDown="CMain_MouseLeftButtonDown" MouseMove="CMain_MouseMove"
@@ -20,7 +21,20 @@
 		<Rectangle Fill="#3c3c3c" HorizontalAlignment="Right" Stroke="#3c3c3c" VerticalAlignment="Stretch"
 					Width="200" Margin="0,50,0,30" />
 		<ListBox x:Name="LbObjects" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="200" BorderThickness="0"
-				Margin="0,50,0,120" SelectionChanged="ObjectsList_SelectionChanged" SelectionMode="Extended" Background="#7c7c7c"/>
+				Margin="0,50,0,120" SelectionChanged="ObjectsList_SelectionChanged" SelectionMode="Extended" Background="#7c7c7c">
+			<ListBox.ItemContainerStyle>
+				<Style TargetType="{x:Type ListBoxItem}">
+					<Setter Property="IsEnabled" Value="{Binding IsSelectable, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+					<Setter Property="IsSelected" Value="{Binding IsSelectedProp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+					<Style.Triggers>
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter Property="Foreground" Value="Black"/>
+							<Setter Property="Background" Value="Tan"/>
+						</Trigger>
+					</Style.Triggers>
+				</Style>
+			</ListBox.ItemContainerStyle>
+		</ListBox>
 		<WrapPanel HorizontalAlignment="Right" Height="90" VerticalAlignment="Bottom" Width="200" Margin="0,0,0,30" Background="Transparent">
 			<Button Content="Select all" Width="100" Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.Select"/>
 			<Button Content="Unselect all" Width="100" Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.Unselect"/>
