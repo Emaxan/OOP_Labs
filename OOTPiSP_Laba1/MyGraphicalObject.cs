@@ -82,7 +82,7 @@ namespace OOTPiSP_Laba1 {
 		/// </summary>
 		public bool IsSelectedProp {
 			get { return _isSelected; }
-			set {
+			protected set {
 				_isSelected = value;
 				Update();
 			}

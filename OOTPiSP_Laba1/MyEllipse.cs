@@ -7,7 +7,7 @@ using OOTPiSP_Laba1.Windows.Pages;
 
 namespace OOTPiSP_Laba1 {
 	[Serializable]
-	public class MyEllipse: MyCircle, ISelectable {
+	public class MyEllipse: MyCircle, ISelectable, IEditable {
 
 		[JsonConstructor]
 		protected MyEllipse(int x,

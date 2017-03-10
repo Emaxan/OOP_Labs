@@ -155,7 +155,7 @@ namespace OOTPiSP_Laba1.Windows {
 			_result = edt.DialogResult == true;
 		}
 
-		private void ObjectChanged(object sender, MouseButtonEventArgs e) {
+		private void ObjectChanged(object sender, EventArgs e) {
 			if(!Keyboard.IsKeyDown(Key.LeftCtrl) && !Keyboard.IsKeyDown(Key.LeftCtrl)) LbObjects.UnselectAll();
 			LbObjects.ItemsSource = _list.ToList;
 		}
@@ -354,7 +354,11 @@ namespace OOTPiSP_Laba1.Windows {
 				MessageBox.Show("Can't complete \"Select all\" with single-select mode.", "Error");
 				return;
 			}
-			LbObjects.SelectAll();
+			var list = LbObjects.Items.Cast<MyGraphicalObject>().Where((MyGraphicalObject go)=>go is ISelectable);
+			foreach(ISelectable graphicalObject in list) {
+				graphicalObject.Select();
+			}
+			ObjectChanged(sender, EventArgs.Empty);
 		}
 
 		private void UnselectAll(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) => LbObjects.UnselectAll();
@@ -368,14 +372,14 @@ namespace OOTPiSP_Laba1.Windows {
 		}
 
 		private void Edit(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) {
-			if(LbObjects.SelectedItems.Count == 0) return;
 			var edt = new EditWindow {
-										Figure = LbObjects.SelectedItems.Cast<MyGraphicalObject>().ToArray(),
+										Figure =
+											LbObjects.SelectedItems.Cast<MyGraphicalObject>().Where((MyGraphicalObject go) => go is IEditable).ToArray(),
 										Owner = this
 									};
+			if(edt.Figure.Length == 0) { MessageBox.Show("No elements to edit or they don't implement IEditable."); return;}
 			edt.ShowDialog();
 			LbObjects.ItemsSource = _list.ToList();
-			_result = edt.DialogResult == true;
 		}
 
 		private static void ExitApp(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs)
