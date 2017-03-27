@@ -1,0 +1,9 @@
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\Params\bin\Debug\Params.dll
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\Params\bin\Debug\Params.pdb
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\Params\bin\Debug\Position.dll
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\Params\bin\Debug\Newtonsoft.Json.dll
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\Params\bin\Debug\Position.pdb
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\Params\bin\Debug\Newtonsoft.Json.xml
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\Params\obj\Debug\Params.csprojResolveAssemblyReference.cache
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\Params\obj\Debug\Params.dll
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\Params\obj\Debug\Params.pdb

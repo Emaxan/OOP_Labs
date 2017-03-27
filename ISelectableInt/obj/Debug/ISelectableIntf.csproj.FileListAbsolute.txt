@@ -1,0 +1,5 @@
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\ISelectableInt\bin\Debug\ISelectableInt.dll
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\ISelectableInt\bin\Debug\ISelectableInt.pdb
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\ISelectableInt\obj\Debug\ISelectableInt.dll
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\ISelectableInt\obj\Debug\ISelectableInt.pdb
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\ISelectableInt\obj\Debug\ISelectableIntf.csprojResolveAssemblyReference.cache

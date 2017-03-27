@@ -1,13 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Security.AccessControl;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
-using OOTPiSP_Laba1.Interfaces;
+using System.Windows.Media.Imaging;
+using GeneralObject;
+using IEditableInt;
+using ISelectableInt;
+using Params;
 using Application = System.Windows.Application;
 using MessageBox = System.Windows.MessageBox;
 using MessageBoxOptions = System.Windows.MessageBoxOptions;
@@ -15,6 +23,7 @@ using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 using SelectionMode = System.Windows.Controls.SelectionMode;
+//TODO Delete references to the shapes
 
 namespace OOTPiSP_Laba1.Windows {
 	/// <summary>
@@ -22,8 +31,9 @@ namespace OOTPiSP_Laba1.Windows {
 	/// </summary>
 	public partial class MainWindow {
 		private readonly int _start;
-		private MyGraphicalObjectList _list = new MyGraphicalObjectList();
+		private MyList<MyGraphicalObject> _list = new MyList<MyGraphicalObject>();
 		private bool _result;
+		private List<GeneralFactory> Factories { get; set; }
 
 		private SelectionMode _selMode;
 
@@ -59,16 +69,67 @@ namespace OOTPiSP_Laba1.Windows {
 			}
 		}
 
+		private void IncludeLibrary(string spath) {
+			try {
+				Thread.Sleep(50);
+				Type type = Assembly.LoadFile(spath).GetExportedTypes()[0];
+				Factories.Add(Activator.CreateInstance(type) as GeneralFactory);
+				this.Dispatcher.BeginInvoke(new Action(() => {
+					var path = new System.Windows.Shapes.Path {
+						Stretch = Stretch.Uniform,
+						Stroke = Brushes.Black,
+						StrokeThickness = 2,
+						Data = Geometry.Parse(type.GetField("PathData").GetValue(null) as string)
+					};
+					var button = new Button {
+						Content = path,
+						Style = (Style)BSelectAll.FindResource("ButtonStyle1")
+					};
+					button.Click += ((o, eventArgs) => {
+						var b = o as Button;
+						int id = DpTop.Children.IndexOf(b);
+						var obj = Factories[id].CreateShape();
+						obj.ObjectChanged += ObjectChanged;
+						Create(ref obj);
+						_list.Add(obj);
+						CMain.Children.Add(obj.Figure);
+						if (!_result)
+							_list.RemoveHash(obj.Hash);
+						LbObjects.ItemsSource = _list.ToList();
+					});
+					DpTop.Children.Add(button);
+				}));
+			}
+			catch (Exception e) {
+				MessageBox.Show(e.Message + '\n' + e.InnerException, "Error!");
+			}
+		}
+
+		private void Window_loaded(object sender, RoutedEventArgs args) {
+			Factories = new List<GeneralFactory>();
+			var fileSystemWatcher = new FileSystemWatcher(AppDomain.CurrentDomain.BaseDirectory + @"ext\Objects\", "*.dll");
+			fileSystemWatcher.Created += (x, y) => 
+			{
+				IncludeLibrary(y.FullPath);
+			};
+			fileSystemWatcher.EnableRaisingEvents = true;
+			foreach(FileInfo file in new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"ext\Objects\").GetFiles("*.dll")) {
+				IncludeLibrary(file.FullName);
+			}
+		}
+
 		private void ObjectsList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
 			foreach(MyGraphicalObject o in e.AddedItems) {
-				if(o is ISelectable) ((ISelectable) o).Select();
+				var selectable = o as ISelectable;
+				if(selectable != null) selectable.Select();
 				else {
 					MessageBox.Show("You can't select this object.");
 				}
 				o.Update();
 			}
 			foreach(MyGraphicalObject o in e.RemovedItems) {
-				if(o is ISelectable) ((ISelectable)o).Unselect();
+				var selectable = o as ISelectable;
+				if(selectable != null) selectable.Unselect();
 				else MessageBox.Show("You can't unselect this object.");
 				o.Update();
 			}
@@ -80,11 +141,11 @@ namespace OOTPiSP_Laba1.Windows {
 			_yStart = (int) e.MouseDevice.GetPosition(CMain).Y;
 		}
 
-		private void MenSingleselect_Checked(object sender, RoutedEventArgs e) => SelMode = SelectionMode.Single;
+		private void MenSingleselect_Checked(object sender, RoutedEventArgs e) { SelMode = SelectionMode.Single; }
 
-		private void MenMultiselect_Checked(object sender, RoutedEventArgs e) => SelMode = SelectionMode.Multiple;
+		private void MenMultiselect_Checked(object sender, RoutedEventArgs e) { SelMode = SelectionMode.Multiple; }
 
-		private void MenExtendedselect_Checked(object sender, RoutedEventArgs e) => SelMode = SelectionMode.Extended;
+		private void MenExtendedselect_Checked(object sender, RoutedEventArgs e) { SelMode = SelectionMode.Extended; }
 
 		private void MenSingleselect_OnClick(object sender, RoutedEventArgs e) {
 			if(SelMode != SelectionMode.Single) SelMode = SelectionMode.Single;
@@ -145,14 +206,20 @@ namespace OOTPiSP_Laba1.Windows {
 			}
 		}
 
-		private void Create(MyGraphicalObject obj) {
+		private void Create(ref MyGraphicalObject obj) {
+			var param = obj.GetParams();
+			var page = new EditPage();
+			page.WriteData(param);
 			var edt = new EditWindow {
-				Figure = new[] {obj},
-				Owner = this
-			};
+										Pages = new[] {page},
+										Owner = this
+									};
 			edt.ShowDialog();
 			LbObjects.ItemsSource = _list.ToList();
 			_result = edt.DialogResult == true;
+			if(!_result) return;
+			page.ReadData(out param);
+			obj.SetParams(param);
 		}
 
 		private void ObjectChanged(object sender, EventArgs e) {
@@ -220,129 +287,89 @@ namespace OOTPiSP_Laba1.Windows {
 			CommandBindings.Add(cmdEdit);
 
 			#endregion
-
-			#region L2
-
-			var circle = new KeyGesture(Key.C, ModifierKeys.Control);
-			MenCircle.InputGestureText = "Ctrl + C";
-			MenCircle.Command = Circle;
-			Circle.InputGestures.Add(circle);
-			var cmdCirc = new CommandBinding(Circle, DrawCirc);
-			CommandBindings.Add(cmdCirc);
-
-			var ellipse = new KeyGesture(Key.E, ModifierKeys.Control);
-			MenEllipse.InputGestureText = "Ctrl + E";
-			MenEllipse.Command = Ellipse;
-			Ellipse.InputGestures.Add(ellipse);
-			var cmdElip = new CommandBinding(Ellipse, DrawElip);
-			CommandBindings.Add(cmdElip);
-
-			var rectangle = new KeyGesture(Key.R, ModifierKeys.Control);
-			MenRectangle.InputGestureText = "Ctrl + R";
-			MenRectangle.Command = Rectangle;
-			Rectangle.InputGestures.Add(rectangle);
-			var cmdRect = new CommandBinding(Rectangle, DrawRect);
-			CommandBindings.Add(cmdRect);
-
-			var square = new KeyGesture(Key.Q, ModifierKeys.Control);
-			MenSquare.InputGestureText = "Ctrl + Q";
-			MenSquare.Command = Square;
-			Square.InputGestures.Add(square);
-			var cmdSqua = new CommandBinding(Square, DrawSqua);
-			CommandBindings.Add(cmdSqua);
-
-			var rombus = new KeyGesture(Key.M, ModifierKeys.Control);
-			MenRombus.InputGestureText = "Ctrl + M";
-			MenRombus.Command = Rombus;
-			Rombus.InputGestures.Add(rombus);
-			var cmdRomb = new CommandBinding(Rombus, DrawRomb);
-			CommandBindings.Add(cmdRomb);
-
-			var triangle = new KeyGesture(Key.T, ModifierKeys.Control);
-			MenTriangle.InputGestureText = "Ctrl + T";
-			MenTriangle.Command = Triangle;
-			Triangle.InputGestures.Add(triangle);
-			var cmdTria = new CommandBinding(Triangle, DrawTria);
-			CommandBindings.Add(cmdTria);
-
-			var parallelogram = new KeyGesture(Key.P, ModifierKeys.Control);
-			MenParallelogram.InputGestureText = "Ctrl + P";
-			MenParallelogram.Command = Parallelogram;
-			Parallelogram.InputGestures.Add(parallelogram);
-			var cmdPara = new CommandBinding(Parallelogram, DrawPara);
-			CommandBindings.Add(cmdPara);
-
-			var line = new KeyGesture(Key.L, ModifierKeys.Control);
-			MenLine.InputGestureText = "Ctrl + L";
-			MenLine.Command = Line;
-			Line.InputGestures.Add(line);
-			var cmdLine = new CommandBinding(Line, DrawLine);
-			CommandBindings.Add(cmdLine);
-
-			#endregion
 		}
 
 		#region L3
 
 		private void OpenFile(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) {
-			var ofd = new OpenFileDialog {
-											Title = "Open from file...",
-											InitialDirectory = @"C:\",
-											Filter = "Bson files(*.bson)|*.bson|All files(*.*)|*.*",
-											FilterIndex = 1
-										};
-			if(ofd.ShowDialog() != true) return;
-			MyGraphicalObjectList objectList;
-			try {
-				objectList = MySerializer.Deserialize<MyGraphicalObjectList>(ofd.FileNames[0]);
-			}
-			catch(IOException e) {
-				MessageBox.Show($"Ошибка открытия файла: \n{e}", "Error");
+			var s = AppDomain.CurrentDomain.BaseDirectory;
+			s = s.Substring(0, s.LastIndexOf('\\')) + @"/ext/Mods/Serialiser.dll";
+			var f = new FileInfo(s);
+			if(f.Exists) {
+				Type type = Assembly.LoadFile(s).GetExportedTypes()[0];
+				var ofd = new OpenFileDialog {
+												Title = "Open from file...",
+												InitialDirectory = @"C:\",
+												Filter = "Bson files(*.bson)|*.bson|All files(*.*)|*.*",
+												FilterIndex = 1
+											};
+				if(ofd.ShowDialog() != true) return;
+				MyList<MyGraphicalObject> objectList;
+				try {
+					objectList = (MyList<MyGraphicalObject>)type.GetMethod("Deserialise")
+						.MakeGenericMethod(typeof(MyList<MyGraphicalObject>))
+						.Invoke(null, new object[] {ofd.FileNames[0]});
+					//objectList = MySerializer.Deserialize<MyList<MyGraphicalObject>>(ofd.FileNames[0]);
+				}
+				catch(IOException e) {
+					MessageBox.Show($"Ошибка открытия файла: \n{e}", "Error");
+					return;
+				}
+				catch(InvalidOperationException e) {
+					MessageBox.Show($"Ошибка в файле: \n{e}", "Error");
+					return;
+				}
+				catch(Exception e) {
+					MessageBox.Show($"Неизвестная ошибка: \n{e}", "Error");
+					return;
+				}
+				CMain.Children.Clear();
+				for(var i = 0; i < objectList.MyCount; i++) {
+					objectList[i].CreateObject();
+					CMain.Children.Add(objectList[i].Figure);
+				}
+				_list = objectList;
+				LbObjects.ItemsSource = _list.ToList();
+				MessageBox.Show("Success!", "Success!");
 				return;
 			}
-			catch(InvalidOperationException e) {
-				MessageBox.Show($"Ошибка в файле: \n{e}", "Error");
-				return;
-			}
-			catch(Exception e) {
-				MessageBox.Show($"Неизвестная ошибка: \n{e}", "Error");
-				return;
-			}
-			CMain.Children.Clear();
-			for(var i = 0; i < objectList.MyCount; i++) {
-				objectList[i].CreateObject();
-				CMain.Children.Add(objectList[i].Figure);
-			}
-			_list = objectList;
-			LbObjects.ItemsSource = _list.ToList();
-			MessageBox.Show("Success!", "Success!");
+			MessageBox.Show("Serialiser.dll corrupted or not exist!", "Error!");
 		}
 
 		private void SaveFile(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) {
-			var sfd = new SaveFileDialog {
-											Title = "Save to file...",
-											InitialDirectory = @"C:\",
-											Filter = "Bson files(*.bson)|*.bson|All files(*.*)|*.*",
-											FilterIndex = 1
-										};
+			var s = AppDomain.CurrentDomain.BaseDirectory;
+			s = s.Substring(0, s.LastIndexOf('\\')) + @"/ext/Mods/Serialiser.dll";
+			var f = new FileInfo(s);
+			if(f.Exists) {
+				Type type = Assembly.LoadFile(s).GetExportedTypes()[0];
+				var sfd = new SaveFileDialog {
+												Title = "Save to file...",
+												InitialDirectory = @"C:\",
+												Filter = "Bson files(*.bson)|*.bson|All files(*.*)|*.*",
+												FilterIndex = 1
+											};
 
-			if(sfd.ShowDialog() != true) return;
-			try {
-				MySerializer.Serialize(sfd.FileNames[0], _list);
+				if(sfd.ShowDialog() != true) return;
+				try {
+					type.GetMethod("Serialise")
+						.MakeGenericMethod(typeof(MyList<MyGraphicalObject>))
+						.Invoke(null, new object[] { sfd.FileNames[0], _list });
+					//MySerializer.Serialize(sfd.FileNames[0], _list);
+				}
+				catch(IOException e) {
+					MessageBox.Show($"Ошибка открытия файла: \n{e}", "Error");
+					return;
+				}
+				catch(InvalidOperationException e) {
+					MessageBox.Show($"Ошибка в файле: \n{e}", "Error");
+					return;
+				}
+				catch(Exception e) {
+					MessageBox.Show($"Неизвестная ошибка: \n{e}", "Error");
+					return;
+				}
+				MessageBox.Show("Success!", "Success!");
 			}
-			catch(IOException e) {
-				MessageBox.Show($"Ошибка открытия файла: \n{e}", "Error");
-				return;
-			}
-			catch(InvalidOperationException e) {
-				MessageBox.Show($"Ошибка в файле: \n{e}", "Error");
-				return;
-			}
-			catch(Exception e) {
-				MessageBox.Show($"Неизвестная ошибка: \n{e}", "Error");
-				return;
-			}
-			MessageBox.Show("Success!", "Success!");
 		}
 
 		#endregion
@@ -354,8 +381,8 @@ namespace OOTPiSP_Laba1.Windows {
 				MessageBox.Show("Can't complete \"Select all\" with single-select mode.", "Error");
 				return;
 			}
-			var list = LbObjects.Items.Cast<MyGraphicalObject>().Where((MyGraphicalObject go)=>go is ISelectable);
-			foreach(ISelectable graphicalObject in list) {
+			var list = LbObjects.Items.Cast<MyGraphicalObject>().Where(go => go is ISelectable);
+			foreach(var graphicalObject in list.Cast<ISelectable>()) {
 				graphicalObject.Select();
 			}
 			ObjectChanged(sender, EventArgs.Empty);
@@ -372,13 +399,28 @@ namespace OOTPiSP_Laba1.Windows {
 		}
 
 		private void Edit(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) {
+			// ReSharper disable once SuspiciousTypeConversion.Global
+			var figure = LbObjects.SelectedItems.Cast<MyGraphicalObject>().Where(go => go is IEditable).ToArray();
+			if (figure.Length == 0) {
+				MessageBox.Show("No elements to edit or they don't implement IEditable.");
+				return;
+			}
+			var pages = new EditPage[figure.Length];
+			for(var i = 0; i < figure.Length; i++) {
+				MyParams param = figure[i].GetParams();
+				pages[i] = new EditPage();
+				pages[i].WriteData(param);
+			}
 			var edt = new EditWindow {
-										Figure =
-											LbObjects.SelectedItems.Cast<MyGraphicalObject>().Where((MyGraphicalObject go) => go is IEditable).ToArray(),
+										Pages = pages,
 										Owner = this
 									};
-			if(edt.Figure.Length == 0) { MessageBox.Show("No elements to edit or they don't implement IEditable."); return;}
-			edt.ShowDialog();
+			if(edt.ShowDialog() != true) return;
+			for (var i = 0; i < figure.Length; i++) {
+				MyParams param;
+				pages[i].ReadData(out param);
+				figure[i].SetParams(param);
+			}
 			LbObjects.ItemsSource = _list.ToList();
 		}
 
@@ -386,127 +428,11 @@ namespace OOTPiSP_Laba1.Windows {
 			=> Application.Current.MainWindow.Close();
 
 		#endregion
-
-		#region L2
-
-		private void DrawCirc(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) { 
-		var circle = MyCircle.CreateFigure(0, 0, 0, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0f);
-			circle.ObjectChanged += ObjectChanged;
-			_list.Add(circle);
-			CMain.Children.Add(circle.Figure);
-			LbObjects.ItemsSource = _list.ToList();
-			//LbObjects.SelectedIndex = LbObjects.Items.Count - 1;
-			//Edit(sender, executedRoutedEventArgs);
-			Create(_list.Objects.Last());
-			if(!_result) _list.RemoveHash(circle.Hash);
-			UnselectAll(sender, executedRoutedEventArgs);
-			LbObjects.ItemsSource = _list.ToList();
-		}
-
-		private void DrawElip(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) {
-			var ellipse = MyEllipse.CreateFigure(0, 0, 0, 0, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0f);
-			ellipse.ObjectChanged += ObjectChanged;
-			_list.Add(ellipse);
-			CMain.Children.Add(ellipse.Figure);
-			LbObjects.ItemsSource = _list.ToList();
-			//LbObjects.SelectedIndex = LbObjects.Items.Count - 1;
-			//Edit(sender, executedRoutedEventArgs);
-			Create(_list.Objects.Last());
-			if (!_result) _list.RemoveHash(ellipse.Hash);
-			UnselectAll(sender, executedRoutedEventArgs);
-			LbObjects.ItemsSource = _list.ToList();
-		}
-
-		private void DrawLine(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) {
-			var line = MyLine.CreateFigure(0, 0, 0, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0f);
-			line.ObjectChanged += ObjectChanged;
-			_list.Add(line);
-			CMain.Children.Add(line.Figure);
-			LbObjects.ItemsSource = _list.ToList();
-			//LbObjects.SelectedIndex = LbObjects.Items.Count - 1;
-			//Edit(sender, executedRoutedEventArgs);
-			Create(_list.Objects.Last());
-			if (!_result) _list.RemoveHash(line.Hash);
-			UnselectAll(sender, executedRoutedEventArgs);
-			LbObjects.ItemsSource = _list.ToList();
-		}
 		
-		private void DrawRect(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) {
-			var rectangle = MyRectangle.CreateFigure(0, 0, 0, 0, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0f);
-			rectangle.ObjectChanged += ObjectChanged;
-			_list.Add(rectangle);
-			CMain.Children.Add(rectangle.Figure);
-			LbObjects.ItemsSource = _list.ToList();
-			//LbObjects.SelectedIndex = LbObjects.Items.Count - 1;
-			//Edit(sender, executedRoutedEventArgs);
-			Create(_list.Objects.Last());
-			if (!_result) _list.RemoveHash(rectangle.Hash);
-			UnselectAll(sender, executedRoutedEventArgs);
-			LbObjects.ItemsSource = _list.ToList();
-		}
-
-		private void DrawSqua(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) {
-			var square = MySquare.CreateFigure(0, 0, 0, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0f);
-			square.ObjectChanged += ObjectChanged;
-			_list.Add(square);
-			CMain.Children.Add(square.Figure);
-			LbObjects.ItemsSource = _list.ToList();
-			//LbObjects.SelectedIndex = LbObjects.Items.Count - 1;
-			//Edit(sender, executedRoutedEventArgs);
-			Create(_list.Objects.Last());
-			if (!_result) _list.RemoveHash(square.Hash);
-			UnselectAll(sender, executedRoutedEventArgs);
-			LbObjects.ItemsSource = _list.ToList();
-		}
-
-		private void DrawRomb(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) {
-			var rombus = MyRombus.CreateFigure(0, 0, 0, 0f, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0f);
-			rombus.ObjectChanged += ObjectChanged;
-			_list.Add(rombus);
-			CMain.Children.Add(rombus.Figure);
-			LbObjects.ItemsSource = _list.ToList();
-			//LbObjects.SelectedIndex = LbObjects.Items.Count - 1;
-			//Edit(sender, executedRoutedEventArgs);
-			Create(_list.Objects.Last());
-			if (!_result) _list.RemoveHash(rombus.Hash);
-			UnselectAll(sender, executedRoutedEventArgs);
-			LbObjects.ItemsSource = _list.ToList();
-		}
-
-		private void DrawTria(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) {
-			var triangle = MyTriangle.CreateFigure(0, 0, 0, 0, 0f, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0f);
-			triangle.ObjectChanged += ObjectChanged;
-			_list.Add(triangle);
-			CMain.Children.Add(triangle.Figure);
-			LbObjects.ItemsSource = _list.ToList();
-			//LbObjects.SelectedIndex = LbObjects.Items.Count - 1;
-			//Edit(sender, executedRoutedEventArgs);
-			Create(_list.Objects.Last());
-			if (!_result) _list.RemoveHash(triangle.Hash);
-			UnselectAll(sender, executedRoutedEventArgs);
-			LbObjects.ItemsSource = _list.ToList();
-		}
-
-		private void DrawPara(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) {
-			var parallelogram = MyParallelogram.CreateFigure(0, 0, 0, 0, 0, Color.FromArgb(0, 0, 0, 0), Colors.Black, 1, 0);
-			parallelogram.ObjectChanged += ObjectChanged;
-			_list.Add(parallelogram);
-			CMain.Children.Add(parallelogram.Figure);
-			LbObjects.ItemsSource = _list.ToList();
-			//LbObjects.SelectedIndex = LbObjects.Items.Count - 1;
-			//Edit(sender, executedRoutedEventArgs);
-			Create(_list.Objects.Last());
-			if (!_result) _list.RemoveHash(parallelogram.Hash);
-			UnselectAll(sender, executedRoutedEventArgs);
-			LbObjects.ItemsSource = _list.ToList();
-		}
-
-		#endregion
-
 		#endregion
 
 		#region RoutedCommands
-
+		// ReSharper disable MemberCanBePrivate.Global
 		#region L3
 
 		public static RoutedCommand Open{ get; } = new RoutedCommand("Open", typeof(MainWindow));
@@ -518,7 +444,7 @@ namespace OOTPiSP_Laba1.Windows {
 		#region General
 
 		public static RoutedCommand Exit{ get; } = new RoutedCommand("Exit", typeof(MainWindow));
-
+		
 		public static RoutedCommand Select{ get; } = new RoutedCommand("Select all", typeof(MainWindow));
 
 		public static RoutedCommand Unselect{ get; } = new RoutedCommand("Unselect all", typeof(MainWindow));
@@ -528,27 +454,8 @@ namespace OOTPiSP_Laba1.Windows {
 		public static RoutedCommand EditElem{ get; } = new RoutedCommand("Edit selected", typeof(MainWindow));
 
 		#endregion
-
-		#region L2
-
-		public static RoutedCommand Circle{ get; } = new RoutedCommand("Draw Circle", typeof(MainWindow));
-
-		public static RoutedCommand Ellipse{ get; } = new RoutedCommand("Draw Ellipse", typeof(MainWindow));
-
-		public static RoutedCommand Line{ get; } = new RoutedCommand("Draw Line", typeof(MainWindow));
-
-		public static RoutedCommand Rectangle{ get; } = new RoutedCommand("Draw Rectangle", typeof(MainWindow));
-
-		public static RoutedCommand Square{ get; } = new RoutedCommand("Draw Square", typeof(MainWindow));
-
-		public static RoutedCommand Rombus{ get; } = new RoutedCommand("Draw Rombus", typeof(MainWindow));
-
-		public static RoutedCommand Triangle{ get; } = new RoutedCommand("Draw Triangle", typeof(MainWindow));
-
-		public static RoutedCommand Parallelogram{ get; } = new RoutedCommand("Draw Parallelogram", typeof(MainWindow));
-
-		#endregion
-
+		
+		// ReSharper restore MemberCanBePrivate.Global
 		#endregion
 	}
 }

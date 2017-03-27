@@ -1,0 +1,17 @@
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\TriangleObject\obj\Debug\TriangleObject.csprojResolveAssemblyReference.cache
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\TriangleObject\bin\Debug\TriangleObject.dll
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\TriangleObject\bin\Debug\TriangleObject.pdb
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\TriangleObject\bin\Debug\GeneralObject.dll
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\TriangleObject\bin\Debug\IEditableInt.dll
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\TriangleObject\bin\Debug\ISelectableInt.dll
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\TriangleObject\bin\Debug\Newtonsoft.Json.dll
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\TriangleObject\bin\Debug\Params.dll
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\TriangleObject\bin\Debug\Position.dll
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\TriangleObject\bin\Debug\GeneralObject.pdb
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\TriangleObject\bin\Debug\IEditableInt.pdb
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\TriangleObject\bin\Debug\ISelectableInt.pdb
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\TriangleObject\bin\Debug\Params.pdb
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\TriangleObject\bin\Debug\Position.pdb
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\TriangleObject\bin\Debug\Newtonsoft.Json.xml
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\TriangleObject\obj\Debug\TriangleObject.dll
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\TriangleObject\obj\Debug\TriangleObject.pdb

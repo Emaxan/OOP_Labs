@@ -6,11 +6,11 @@ using System.Windows;
 // набора атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
 [assembly: AssemblyTitle( "OOTPiSP_Laba1" )]
-[assembly: AssemblyDescription( "" )]
+[assembly: AssemblyDescription("First laba.")]
 [assembly: AssemblyConfiguration( "" )]
-[assembly: AssemblyCompany( "" )]
+[assembly: AssemblyCompany("Rose_Lalonde_production")]
 [assembly: AssemblyProduct( "OOTPiSP_Laba1" )]
-[assembly: AssemblyCopyright( "Copyright ©  2016" )]
+[assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
 

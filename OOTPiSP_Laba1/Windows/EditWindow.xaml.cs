@@ -11,15 +11,15 @@ namespace OOTPiSP_Laba1.Windows {
 		private readonly SolidColorBrush _activeBg = new SolidColorBrush(Color.FromArgb(200, 150, 150, 150));
 		private Border _active;
 		private double _xSt, _ySt;
-		public MyGraphicalObject[] Figure;
+		public EditPage[] Pages;
 
 		public EditWindow() { InitializeComponent(); }
 
 		private void Window_Loaded(object sender, RoutedEventArgs e) {
-			for(var i = 0; i < Figure.Length; i++) {
-				Figure[i].WritePage();
+			for(var i = 0; i < Pages.Length; i++) {
+				//Figure[i].WritePage();
 				GLinks.ColumnDefinitions.Add(new ColumnDefinition {Width = new GridLength(1, GridUnitType.Star)});
-				if(Figure.Length == 1)
+				if(Pages.Length == 1)
 					continue;
 				var border = new Border {
 											BorderThickness = new Thickness(1),
@@ -55,11 +55,11 @@ namespace OOTPiSP_Laba1.Windows {
 									};
 				border.Child = label;
 			}
-			FMain.NavigationService.Navigate(Figure[0].Page);
+			FMain.NavigationService.Navigate(Pages[0]);
 		}
 
 		private void NavigationButtonClick(object sender, MouseButtonEventArgs e) {
-			FMain.NavigationService.Navigate(Figure[Grid.GetColumn((Border) sender)].Page);
+			FMain.NavigationService.Navigate(Pages[Grid.GetColumn((Border) sender)]);
 			_active.Background = Brushes.Transparent;
 			_active = (Border) sender;
 			_active.Background = _activeBg;
@@ -92,7 +92,6 @@ namespace OOTPiSP_Laba1.Windows {
 
 		private void ButtonOk_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
 			if(!BClose.Focus()) MessageBox.Show("FocusError");
-			foreach(var graphicalObject in Figure) graphicalObject.ReadPage();
 			DialogResult = true;
 			Close();
 		}
@@ -113,17 +112,17 @@ namespace OOTPiSP_Laba1.Windows {
 					e.Handled = true;
 					break;
 				case Key.Tab:
-					if(Figure.Length == 1) break;
+					if(Pages.Length == 1) break;
 					if(Keyboard.Modifiers == ModifierKeys.Control) {
 						FMain.NavigationService.Navigate(
-							Figure[(Grid.GetColumn(_active) + 1)%Figure.Length].Page);
+							Pages[(Grid.GetColumn(_active) + 1)%Pages.Length]);
 						_active.Background = Brushes.Transparent;
 						_active = (Border) GLinks.Children[(Grid.GetColumn(_active) + 1)%GLinks.Children.Count];
 						_active.Background = _activeBg;
 					}
 					if(Keyboard.Modifiers == (ModifierKeys.Control|ModifierKeys.Shift)) {
 						FMain.NavigationService.Navigate(
-							Figure[(Grid.GetColumn(_active) - 1 + Figure.Length)%Figure.Length].Page);
+							Pages[(Grid.GetColumn(_active) - 1 + Pages.Length)%Pages.Length]);
 						_active.Background = Brushes.Transparent;
 						_active = (Border) GLinks.Children[(Grid.GetColumn(_active) - 1 + GLinks.Children.Count)%GLinks.Children.Count];
 						_active.Background = _activeBg;

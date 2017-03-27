@@ -1,0 +1,7 @@
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\Serializer\bin\Debug\Serializer.dll
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\Serializer\bin\Debug\Serializer.pdb
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\Serializer\bin\Debug\Newtonsoft.Json.dll
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\Serializer\bin\Debug\Newtonsoft.Json.xml
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\Serializer\obj\Debug\Serializer.dll
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\Serializer\obj\Debug\Serializer.pdb
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\Serializer\obj\Debug\Serializer.csprojResolveAssemblyReference.cache

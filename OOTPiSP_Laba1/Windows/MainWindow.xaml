@@ -8,7 +8,7 @@
 		mc:Ignorable="d"
 		Title="FigureMax" Height="768" Width="1366" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
 		WindowState="Normal" MouseLeftButtonDown="CMain_MouseLeftButtonDown" MouseMove="CMain_MouseMove"
-		Closing="MainWindow_OnClosing">
+		Closing="MainWindow_OnClosing" Loaded="Window_loaded">
 	<Grid>
 		<Border HorizontalAlignment="Stretch" Margin="0,50,200,30" VerticalAlignment="Stretch" BorderThickness="0"
 				BorderBrush="Black" Background="DimGray">
@@ -36,7 +36,7 @@
 			</ListBox.ItemContainerStyle>
 		</ListBox>
 		<WrapPanel HorizontalAlignment="Right" Height="90" VerticalAlignment="Bottom" Width="200" Margin="0,0,0,30" Background="Transparent">
-			<Button Content="Select all" Width="100" Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.Select"/>
+			<Button x:Name="BSelectAll" Content="Select all" Width="100" Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.Select"/>
 			<Button Content="Unselect all" Width="100" Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.Unselect"/>
 			<Button Content="Delete" Width="100" Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.Delete"/>
 			<Button Content="Edit" Width="100" Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.EditElem"/>
@@ -206,7 +206,7 @@
 			</MenuItem>
 		</Menu>
 		<DockPanel x:Name="DpTop" HorizontalAlignment="Stretch" LastChildFill="False" Margin="0,20,0,0" VerticalAlignment="Top">
-			<Button Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.Circle">
+			<!--<Button Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.Circle">
 				<Image Source="./../Properties/img/Circ.png" />
 			</Button>
 			<Button Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.Ellipse">
@@ -229,7 +229,7 @@
 			</Button>
 			<Button Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.Parallelogram">
 				<Image Source="./../Properties/img/Para.png" />
-			</Button>
+			</Button>-->
 		</DockPanel>
 
 	</Grid>

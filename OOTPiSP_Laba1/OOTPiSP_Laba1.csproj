@@ -14,6 +14,21 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,11 +50,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ColorPickerControls">
-      <HintPath>.\ColorPickerControls.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -64,18 +76,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Interfaces\IEditable.cs" />
-    <Compile Include="Interfaces\ISelectable.cs" />
-    <Compile Include="MyCircle.cs" />
-    <Compile Include="MyEllipse.cs" />
-    <Compile Include="MyGraphicalObjectList.cs" />
-    <Compile Include="MyParallelogram.cs" />
-    <Compile Include="MyRectangle.cs" />
-    <Compile Include="MyRombus.cs" />
-    <Compile Include="MySquare.cs" />
-    <Compile Include="MyTriangle.cs" />
-    <Compile Include="Position.cs" />
-    <Compile Include="Singleton\ColorPicker.cs" />
+    <Compile Include="ColorPicker.cs" />
+    <Compile Include="MyList.cs" />
+    <Compile Include="Windows\EditPage.xaml.cs">
+      <DependentUpon>EditPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\EditWindow.xaml.cs">
       <DependentUpon>EditWindow.xaml</DependentUpon>
     </Compile>
@@ -86,30 +91,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MyGraphicalObject.cs" />
-    <Compile Include="MyLine.cs" />
-    <Compile Include="MySerializer.cs" />
-    <Compile Include="Windows\Pages\MyCirclePage.xaml.cs">
-      <DependentUpon>MyCirclePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\Pages\MyEllipsePage.xaml.cs">
-      <DependentUpon>MyEllipsePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\Pages\MyLinePage.xaml.cs">
-      <DependentUpon>MyLinePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\Pages\MyParallelogramPAge.xaml.cs">
-      <DependentUpon>MyParallelogramPAge.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\Pages\MyRectanglePage.xaml.cs">
-      <DependentUpon>MyRectanglePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\Pages\MyRombusPage.xaml.cs">
-      <DependentUpon>MyRombusPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\Pages\MySquarePage.xaml.cs">
-      <DependentUpon>MySquarePage.xaml</DependentUpon>
-    </Compile>
+    <Page Include="Windows\EditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\EditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -117,34 +102,6 @@
     <Page Include="Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Windows\Pages\MyCirclePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\Pages\MyEllipsePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\Pages\MyLinePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\Pages\MyParallelogramPAge.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\Pages\MyRectanglePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\Pages\MyRombusPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\Pages\MySquarePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -165,7 +122,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -215,6 +171,40 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GeneralObject\GeneralObject.csproj">
+      <Project>{5ca4f362-6b05-43d9-86f5-870f54e1867f}</Project>
+      <Name>GeneralObject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IEditableInt\IEditableIntf.csproj">
+      <Project>{4278ef74-40dd-4927-a3e5-99f14976589b}</Project>
+      <Name>IEditableIntf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ISelectableInt\ISelectableIntf.csproj">
+      <Project>{30dcce87-d973-4753-a846-f96bd8b193fe}</Project>
+      <Name>ISelectableIntf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Params\Params.csproj">
+      <Project>{66ac923e-8402-42d2-954a-7ef1d528e3f3}</Project>
+      <Name>Params</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Position\MyPosition.csproj">
+      <Project>{9bf5d57d-9725-4236-926a-15273384bcfc}</Project>
+      <Name>MyPosition</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
