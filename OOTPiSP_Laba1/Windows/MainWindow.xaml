@@ -4,7 +4,6 @@
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:windows="clr-namespace:OOTPiSP_Laba1.Windows"
-		xmlns:mgo="clr-namespace:OOTPiSP_Laba1"
 		mc:Ignorable="d"
 		Title="FigureMax" Height="768" Width="1366" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
 		WindowState="Normal" MouseLeftButtonDown="CMain_MouseLeftButtonDown" MouseMove="CMain_MouseMove"
@@ -112,88 +111,6 @@
 						</Image>
 					</MenuItem.Icon>
 				</MenuItem>
-				<MenuItem Header="Create new..." Template="{DynamicResource MenuItemControlTemplate2}">
-					<MenuItem.Icon>
-						<Image>
-							<Image.Source>
-								<BitmapImage UriSource="/OOTPiSP_Laba1;component/Properties/Img/draw.png" />
-							</Image.Source>
-						</Image>
-					</MenuItem.Icon>
-
-					<MenuItem x:Name="MenCircle" Header="Circle" Template="{DynamicResource MenuItemControlTemplate1}">
-						<MenuItem.Icon>
-							<Image>
-								<Image.Source>
-									<BitmapImage UriSource="/OOTPiSP_Laba1;component/Properties/Img/Circ.png" />
-								</Image.Source>
-							</Image>
-						</MenuItem.Icon>
-					</MenuItem>
-					<MenuItem x:Name="MenEllipse" Header="Ellipse" Template="{DynamicResource MenuItemControlTemplate1}">
-						<MenuItem.Icon>
-							<Image>
-								<Image.Source>
-									<BitmapImage UriSource="/OOTPiSP_Laba1;component/Properties/Img/Elip.png" />
-								</Image.Source>
-							</Image>
-						</MenuItem.Icon>
-					</MenuItem>
-					<MenuItem x:Name="MenLine" Header="Line" Template="{DynamicResource MenuItemControlTemplate1}">
-						<MenuItem.Icon>
-							<Image>
-								<Image.Source>
-									<BitmapImage UriSource="/OOTPiSP_Laba1;component/Properties/Img/Line.png" />
-								</Image.Source>
-							</Image>
-						</MenuItem.Icon>
-					</MenuItem>
-					<MenuItem x:Name="MenRectangle" Header="Rectangle" Template="{DynamicResource MenuItemControlTemplate1}">
-						<MenuItem.Icon>
-							<Image>
-								<Image.Source>
-									<BitmapImage UriSource="/OOTPiSP_Laba1;component/Properties/Img/Rect.png" />
-								</Image.Source>
-							</Image>
-						</MenuItem.Icon>
-					</MenuItem>
-					<MenuItem x:Name="MenSquare" Header="Square" Template="{DynamicResource MenuItemControlTemplate1}">
-						<MenuItem.Icon>
-							<Image>
-								<Image.Source>
-									<BitmapImage UriSource="/OOTPiSP_Laba1;component/Properties/Img/Squa.png" />
-								</Image.Source>
-							</Image>
-						</MenuItem.Icon>
-					</MenuItem>
-					<MenuItem x:Name="MenRombus" Header="Rombus" Template="{DynamicResource MenuItemControlTemplate1}">
-						<MenuItem.Icon>
-							<Image>
-								<Image.Source>
-									<BitmapImage UriSource="/OOTPiSP_Laba1;component/Properties/Img/Romb.png" />
-								</Image.Source>
-							</Image>
-						</MenuItem.Icon>
-					</MenuItem>
-					<MenuItem x:Name="MenTriangle" Header="Triangle" Template="{DynamicResource MenuItemControlTemplate1}">
-						<MenuItem.Icon>
-							<Image>
-								<Image.Source>
-									<BitmapImage UriSource="/OOTPiSP_Laba1;component/Properties/Img/Tria.png" />
-								</Image.Source>
-							</Image>
-						</MenuItem.Icon>
-					</MenuItem>
-					<MenuItem x:Name="MenParallelogram" Header="Parallelogram" Template="{DynamicResource MenuItemControlTemplate1}">
-						<MenuItem.Icon>
-							<Image>
-								<Image.Source>
-									<BitmapImage UriSource="/OOTPiSP_Laba1;component/Properties/Img/Para.png" />
-								</Image.Source>
-							</Image>
-						</MenuItem.Icon>
-					</MenuItem>
-				</MenuItem>
 				<MenuItem x:Name="MenEdit" Header="Edit" Template="{DynamicResource MenuItemControlTemplate1}">
 					<MenuItem.Icon>
 						<Image>
@@ -206,30 +123,7 @@
 			</MenuItem>
 		</Menu>
 		<DockPanel x:Name="DpTop" HorizontalAlignment="Stretch" LastChildFill="False" Margin="0,20,0,0" VerticalAlignment="Top">
-			<!--<Button Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.Circle">
-				<Image Source="./../Properties/img/Circ.png" />
-			</Button>
-			<Button Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.Ellipse">
-				<Image Source="./../Properties/img/Elip.png" />
-			</Button>
-			<Button Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.Line">
-				<Image Source="./../Properties/img/Line.png" />
-			</Button>
-			<Button Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.Rectangle">
-				<Image Source="./../Properties/img/Rect.png" />
-			</Button>
-			<Button Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.Square">
-				<Image Source="./../Properties/img/Squa.png" />
-			</Button>
-			<Button Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.Rombus">
-				<Image Source="./../Properties/img/Romb.png" />
-			</Button>
-			<Button Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.Triangle">
-				<Image Source="./../Properties/img/Tria.png" />
-			</Button>
-			<Button Style="{DynamicResource ButtonStyle1}" Command="windows:MainWindow.Parallelogram">
-				<Image Source="./../Properties/img/Para.png" />
-			</Button>-->
+		
 		</DockPanel>
 
 	</Grid>

@@ -133,30 +133,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Properties\Img\Circ.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Properties\Img\Elip.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Properties\Img\Line.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Properties\Img\Para.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Properties\Img\Rect.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Properties\Img\Romb.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Properties\Img\Squa.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Properties\Img\Tria.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Properties\Img\folder.png" />
     <Resource Include="Properties\Img\Save.png" />
   </ItemGroup>

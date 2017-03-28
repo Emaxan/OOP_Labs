@@ -4,26 +4,16 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Security.AccessControl;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
+using Microsoft.Win32;
 using GeneralObject;
 using IEditableInt;
 using ISelectableInt;
 using Params;
-using Application = System.Windows.Application;
-using MessageBox = System.Windows.MessageBox;
-using MessageBoxOptions = System.Windows.MessageBoxOptions;
-using MouseEventArgs = System.Windows.Input.MouseEventArgs;
-using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
-using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
-using SelectionMode = System.Windows.Controls.SelectionMode;
-//TODO Delete references to the shapes
 
 namespace OOTPiSP_Laba1.Windows {
 	/// <summary>
@@ -74,7 +64,7 @@ namespace OOTPiSP_Laba1.Windows {
 				Thread.Sleep(50);
 				Type type = Assembly.LoadFile(spath).GetExportedTypes()[0];
 				Factories.Add(Activator.CreateInstance(type) as GeneralFactory);
-				this.Dispatcher.BeginInvoke(new Action(() => {
+				Dispatcher.BeginInvoke(new Action(() => {
 					var path = new System.Windows.Shapes.Path {
 						Stretch = Stretch.Uniform,
 						Stroke = Brushes.Black,
@@ -293,7 +283,7 @@ namespace OOTPiSP_Laba1.Windows {
 
 		private void OpenFile(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) {
 			var s = AppDomain.CurrentDomain.BaseDirectory;
-			s = s.Substring(0, s.LastIndexOf('\\')) + @"/ext/Mods/Serialiser.dll";
+			s = s.Substring(0, s.LastIndexOf('\\')) + @"/ext/Mods/Serializer.dll";
 			var f = new FileInfo(s);
 			if(f.Exists) {
 				Type type = Assembly.LoadFile(s).GetExportedTypes()[0];
@@ -309,7 +299,6 @@ namespace OOTPiSP_Laba1.Windows {
 					objectList = (MyList<MyGraphicalObject>)type.GetMethod("Deserialise")
 						.MakeGenericMethod(typeof(MyList<MyGraphicalObject>))
 						.Invoke(null, new object[] {ofd.FileNames[0]});
-					//objectList = MySerializer.Deserialize<MyList<MyGraphicalObject>>(ofd.FileNames[0]);
 				}
 				catch(IOException e) {
 					MessageBox.Show($"Ошибка открытия файла: \n{e}", "Error");
@@ -325,7 +314,7 @@ namespace OOTPiSP_Laba1.Windows {
 				}
 				CMain.Children.Clear();
 				for(var i = 0; i < objectList.MyCount; i++) {
-					objectList[i].CreateObject();
+					objectList[i].Update();
 					CMain.Children.Add(objectList[i].Figure);
 				}
 				_list = objectList;
@@ -338,7 +327,7 @@ namespace OOTPiSP_Laba1.Windows {
 
 		private void SaveFile(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) {
 			var s = AppDomain.CurrentDomain.BaseDirectory;
-			s = s.Substring(0, s.LastIndexOf('\\')) + @"/ext/Mods/Serialiser.dll";
+			s = s.Substring(0, s.LastIndexOf('\\')) + @"/ext/Mods/Serializer.dll";
 			var f = new FileInfo(s);
 			if(f.Exists) {
 				Type type = Assembly.LoadFile(s).GetExportedTypes()[0];
@@ -354,7 +343,6 @@ namespace OOTPiSP_Laba1.Windows {
 					type.GetMethod("Serialise")
 						.MakeGenericMethod(typeof(MyList<MyGraphicalObject>))
 						.Invoke(null, new object[] { sfd.FileNames[0], _list });
-					//MySerializer.Serialize(sfd.FileNames[0], _list);
 				}
 				catch(IOException e) {
 					MessageBox.Show($"Ошибка открытия файла: \n{e}", "Error");
@@ -369,7 +357,9 @@ namespace OOTPiSP_Laba1.Windows {
 					return;
 				}
 				MessageBox.Show("Success!", "Success!");
+				return;
 			}
+			MessageBox.Show("Serialiser.dll corrupted or not exist!", "Error!");
 		}
 
 		#endregion
@@ -432,7 +422,7 @@ namespace OOTPiSP_Laba1.Windows {
 		#endregion
 
 		#region RoutedCommands
-		// ReSharper disable MemberCanBePrivate.Global
+
 		#region L3
 
 		public static RoutedCommand Open{ get; } = new RoutedCommand("Open", typeof(MainWindow));
@@ -455,7 +445,6 @@ namespace OOTPiSP_Laba1.Windows {
 
 		#endregion
 		
-		// ReSharper restore MemberCanBePrivate.Global
 		#endregion
 	}
 }

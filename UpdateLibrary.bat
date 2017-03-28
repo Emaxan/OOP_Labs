@@ -1,0 +1,16 @@
+copy /Y /B CircleObject\bin\Debug\CircleObject.dll OOTPiSP_Laba1\bin\Debug\ext\CircleObject.dll
+copy /Y /B EllipseObject\bin\Debug\EllipseObject.dll OOTPiSP_Laba1\bin\Debug\ext\EllipseObject.dll
+copy /Y /B LineObject\bin\Debug\LineObject.dll OOTPiSP_Laba1\bin\Debug\ext\LineObject.dll
+copy /Y /B ParallelogramObject\bin\Debug\ParallelogramObject.dll OOTPiSP_Laba1\bin\Debug\ext\ParallelogramObject.dll
+copy /Y /B RectangleObject\bin\Debug\RectangleObject.dll OOTPiSP_Laba1\bin\Debug\ext\RectangleObject.dll
+copy /Y /B RombusObject\bin\Debug\RombusObject.dll OOTPiSP_Laba1\bin\Debug\ext\RombusObject.dll
+copy /Y /B SquareObject\bin\Debug\SquareObject.dll OOTPiSP_Laba1\bin\Debug\ext\SquareObject.dll
+copy /Y /B TriangleObject\bin\Debug\TriangleObject.dll OOTPiSP_Laba1\bin\Debug\ext\TriangleObject.dll
+copy /Y /B CircleObject\bin\Debug\CircleObject.dll OOTPiSP_Laba1\bin\Debug\ext\Objects\CircleObject.dll
+copy /Y /B EllipseObject\bin\Debug\EllipseObject.dll OOTPiSP_Laba1\bin\Debug\ext\Objects\EllipseObject.dll
+copy /Y /B LineObject\bin\Debug\LineObject.dll OOTPiSP_Laba1\bin\Debug\ext\Objects\LineObject.dll
+copy /Y /B ParallelogramObject\bin\Debug\ParallelogramObject.dll OOTPiSP_Laba1\bin\Debug\ext\Objects\ParallelogramObject.dll
+copy /Y /B RectangleObject\bin\Debug\RectangleObject.dll OOTPiSP_Laba1\bin\Debug\ext\Objects\RectangleObject.dll
+copy /Y /B RombusObject\bin\Debug\RombusObject.dll OOTPiSP_Laba1\bin\Debug\ext\Objects\RombusObject.dll
+copy /Y /B SquareObject\bin\Debug\SquareObject.dll OOTPiSP_Laba1\bin\Debug\ext\Objects\SquareObject.dll
+copy /Y /B TriangleObject\bin\Debug\TriangleObject.dll OOTPiSP_Laba1\bin\Debug\ext\Objects\TriangleObject.dll

@@ -8,14 +8,25 @@ namespace CircleObject {
 		public const string PathData = "M 0,0 A 10,10 360 1 0 1,1 z";
 
 		public override MyGraphicalObject CreateShape() {
-			return MyCircle.CreateFigure(new MyParams {
-														Position = new Position(0, 0),
-														RadiusX = 0,
-														BgColor = Colors.Transparent,
-														BorderColor = Colors.Black,
-														Thickness = 1,
-														GAngle = 0
-													});
+			var obj = new MyCircle();
+			obj.SetParams(new MyParams {
+											Fields = (int) (
+																MyFields.Name
+																|MyFields.Thickness
+																|MyFields.BgColor
+																|MyFields.BorderColor
+																|MyFields.GAngle
+																|MyFields.Position
+																|MyFields.RadiusX
+															),
+											Position = new Position(0, 0),
+											RadiusX = 0,
+											BgColor = Colors.Transparent,
+											BorderColor = Colors.Black,
+											Thickness = 1,
+											GAngle = 0
+										});
+			return obj;
 		}
 	}
 }
