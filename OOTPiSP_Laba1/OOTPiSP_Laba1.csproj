@@ -78,6 +78,8 @@
     </ApplicationDefinition>
     <Compile Include="ColorPicker.cs" />
     <Compile Include="MyList.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="WindowSettings.cs" />
     <Compile Include="Windows\EditPage.xaml.cs">
       <DependentUpon>EditPage.xaml</DependentUpon>
     </Compile>
@@ -124,7 +126,7 @@
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
@@ -176,10 +178,6 @@
     <ProjectReference Include="..\Params\Params.csproj">
       <Project>{66ac923e-8402-42d2-954a-7ef1d528e3f3}</Project>
       <Name>Params</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Position\MyPosition.csproj">
-      <Project>{9bf5d57d-9725-4236-926a-15273384bcfc}</Project>
-      <Name>MyPosition</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

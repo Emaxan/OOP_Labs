@@ -4,14 +4,12 @@ D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\ParallelogramObject\bin\Debug\Parallelogra
 D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\ParallelogramObject\bin\Debug\GeneralObject.dll
 D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\ParallelogramObject\bin\Debug\IEditableInt.dll
 D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\ParallelogramObject\bin\Debug\ISelectableInt.dll
-D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\ParallelogramObject\bin\Debug\Newtonsoft.Json.dll
 D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\ParallelogramObject\bin\Debug\Params.dll
-D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\ParallelogramObject\bin\Debug\Position.dll
 D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\ParallelogramObject\bin\Debug\GeneralObject.pdb
 D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\ParallelogramObject\bin\Debug\IEditableInt.pdb
 D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\ParallelogramObject\bin\Debug\ISelectableInt.pdb
 D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\ParallelogramObject\bin\Debug\Params.pdb
-D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\ParallelogramObject\bin\Debug\Position.pdb
-D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\ParallelogramObject\bin\Debug\Newtonsoft.Json.xml
 D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\ParallelogramObject\obj\Debug\ParallelogramObject.dll
 D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\ParallelogramObject\obj\Debug\ParallelogramObject.pdb
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\ParallelogramObject\bin\Debug\Newtonsoft.Json.dll
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\ParallelogramObject\bin\Debug\Newtonsoft.Json.xml

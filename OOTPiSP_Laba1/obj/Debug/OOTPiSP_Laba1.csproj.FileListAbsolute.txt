@@ -116,8 +116,6 @@ D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\OOTPiSP_Laba1\obj\Debug\OOTPiSP_Laba1.Prop
 D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\OOTPiSP_Laba1\obj\Debug\OOTPiSP_Laba1.csproj.GenerateResource.Cache
 D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\OOTPiSP_Laba1\bin\Debug\Newtonsoft.Json.dll
 D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\OOTPiSP_Laba1\bin\Debug\Newtonsoft.Json.xml
-D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\OOTPiSP_Laba1\bin\Debug\Position.dll
-D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\OOTPiSP_Laba1\bin\Debug\Position.pdb
 D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\OOTPiSP_Laba1\obj\Debug\Windows\EditPage.g.cs
 D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\OOTPiSP_Laba1\bin\Debug\GeneralObject.dll
 D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\OOTPiSP_Laba1\bin\Debug\IEditableInt.dll

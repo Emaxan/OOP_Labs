@@ -1,0 +1,15 @@
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\TextObject\bin\Debug\TextObject.dll
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\TextObject\bin\Debug\TextObject.pdb
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\TextObject\bin\Debug\GeneralObject.dll
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\TextObject\bin\Debug\IEditableInt.dll
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\TextObject\bin\Debug\ISelectableInt.dll
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\TextObject\bin\Debug\Params.dll
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\TextObject\bin\Debug\Newtonsoft.Json.dll
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\TextObject\bin\Debug\GeneralObject.pdb
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\TextObject\bin\Debug\IEditableInt.pdb
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\TextObject\bin\Debug\ISelectableInt.pdb
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\TextObject\bin\Debug\Params.pdb
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\TextObject\bin\Debug\Newtonsoft.Json.xml
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\TextObject\obj\Debug\TextObject.csprojResolveAssemblyReference.cache
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\TextObject\obj\Debug\TextObject.dll
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\TextObject\obj\Debug\TextObject.pdb

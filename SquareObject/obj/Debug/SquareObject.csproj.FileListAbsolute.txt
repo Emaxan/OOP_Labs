@@ -4,14 +4,12 @@ D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\SquareObject\bin\Debug\SquareObject.pdb
 D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\SquareObject\bin\Debug\GeneralObject.dll
 D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\SquareObject\bin\Debug\IEditableInt.dll
 D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\SquareObject\bin\Debug\ISelectableInt.dll
-D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\SquareObject\bin\Debug\Newtonsoft.Json.dll
 D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\SquareObject\bin\Debug\Params.dll
-D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\SquareObject\bin\Debug\Position.dll
 D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\SquareObject\bin\Debug\GeneralObject.pdb
 D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\SquareObject\bin\Debug\IEditableInt.pdb
 D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\SquareObject\bin\Debug\ISelectableInt.pdb
 D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\SquareObject\bin\Debug\Params.pdb
-D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\SquareObject\bin\Debug\Position.pdb
-D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\SquareObject\bin\Debug\Newtonsoft.Json.xml
 D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\SquareObject\obj\Debug\SquareObject.dll
 D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\SquareObject\obj\Debug\SquareObject.pdb
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\SquareObject\bin\Debug\Newtonsoft.Json.dll
+D:\Programs\VS\_OOTPiSP\OOTPiSP_Laba1\SquareObject\bin\Debug\Newtonsoft.Json.xml

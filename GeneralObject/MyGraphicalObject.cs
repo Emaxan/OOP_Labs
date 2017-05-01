@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using ISelectableInt;
-using MyPosition;
+using Newtonsoft.Json;
 using Params;
 
 namespace GeneralObject {
@@ -19,6 +19,7 @@ namespace GeneralObject {
 		[NonSerialized]
 		public UIElement Figure;
 
+		[JsonIgnore]
 		/// <summary>
 		///     Hash of the object
 		/// </summary>
@@ -33,9 +34,14 @@ namespace GeneralObject {
 		}
 
 		/// <summary>
-		///     Position of the object
+		/// X coordinate of object
 		/// </summary>
-		public Position Position{ get; set; }
+		public int X{ get; set; }
+
+		/// <summary>
+		/// Y coordinate of object
+		/// </summary>
+		public int Y{ get; set; }
 
 		/// <summary>
 		///     Background color
@@ -62,6 +68,7 @@ namespace GeneralObject {
 		/// </summary>
 		protected abstract string StdName{ get; }
 
+		[JsonIgnore]
 		/// <summary>
 		///     True, if object is selected. Otherwise false.
 		/// </summary>
@@ -73,7 +80,10 @@ namespace GeneralObject {
 			}
 		}
 
-		public bool IsSelectable => this is ISelectable;
+		[JsonIgnore]
+		public bool IsSelectable {
+			get { return this is ISelectable; }
+		}
 
 		public event EventHandler<MouseButtonEventArgs> ObjectChanged;
 
@@ -106,8 +116,8 @@ namespace GeneralObject {
 		public virtual void Select() { IsSelectedProp = true; }
 		public virtual void Unselect() { IsSelectedProp = false; }
 
-		protected void ObjectChangedFunc(object sender, MouseButtonEventArgs args) => ObjectChanged?.Invoke(sender, args);
+		protected void ObjectChangedFunc(object sender, MouseButtonEventArgs args) { ObjectChanged?.Invoke(sender, args); }
 
-		public override string ToString() => $"{(Name == ""? StdName : Name)} ({Position})";
+		public override string ToString() => $"{(Name == ""? StdName : Name)} ({X}:{Y})";
 	}
 }

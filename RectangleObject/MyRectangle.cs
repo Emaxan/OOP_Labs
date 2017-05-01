@@ -36,7 +36,8 @@ namespace RectangleObject {
 									BgColor = BgColor,
 									BorderColor = BorderColor,
 									GAngle = AngleGlobal,
-									Position = Position,
+									X = X,
+									Y = Y,
 									Length1 = Length1,
 									Length2 = Length2
 								};
@@ -48,15 +49,15 @@ namespace RectangleObject {
 			if((param.Fields&(int) MyFields.BgColor) != 0) BgColor = param.BgColor;
 			if((param.Fields&(int) MyFields.BorderColor) != 0) BorderColor = param.BorderColor;
 			if((param.Fields&(int) MyFields.GAngle) != 0) AngleGlobal = param.GAngle;
-			if((param.Fields&(int) MyFields.Position) != 0) Position = param.Position;
-			if((param.Fields&(int) MyFields.Length1) != 0) Length1 = param.Length1;
+			if((param.Fields&(int) MyFields.Position) != 0) { X = param.X; Y = param.Y; }
+			if ((param.Fields&(int) MyFields.Length1) != 0) Length1 = param.Length1;
 			if((param.Fields&(int) MyFields.Length2) != 0) Length2 = param.Length1;
 			Update();
 		}
 
 		public override void Update() {
-			var rt = new RotateTransform(AngleGlobal, Position.X, Position.Y);
-			var tt = new TranslateTransform(Position.X, Position.Y);
+			var rt = new RotateTransform(AngleGlobal, X, Y);
+			var tt = new TranslateTransform(X, Y);
 			var tg = new TransformGroup();
 			tg.Children.Add(tt);
 			tg.Children.Add(rt);

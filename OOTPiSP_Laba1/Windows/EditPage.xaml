@@ -24,6 +24,7 @@
 					<RowDefinition x:Name="Rd8"/>
 					<RowDefinition x:Name="Rd9"/>
 					<RowDefinition x:Name="Rd10"/>
+					<RowDefinition x:Name="Rd11"/>
 				</Grid.RowDefinitions>
 				<Grid x:Name="GrName" Grid.Row="0">
 					<Grid.ColumnDefinitions>
@@ -113,6 +114,14 @@
 					</Grid.ColumnDefinitions>
 					<Label Grid.Column="0" Content="Angle(Deg)" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Foreground="LightGray"/>
 					<TextBox x:Name="TbAngle" Grid.Column="1" Background="#44FFFFFF" BorderBrush="{x:Null}" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" KeyDown="Numbers_KeyDown" Style="{DynamicResource TextBoxStyle1}" MaxLength="3" LostKeyboardFocus="Numbers_LostKeyboardFocus" PreviewKeyDown="Numbers_PreviewKeyDown"/>
+				</Grid>
+				<Grid x:Name="GrText" Grid.Row="11">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" SharedSizeGroup="first"/>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+					<Label Grid.Column="0" Content="Text" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Foreground="LightGray"/>
+					<TextBox x:Name="TbText" Grid.Column="1" Background="#44FFFFFF" BorderBrush="{x:Null}" VerticalAlignment="Top" Height="30" VerticalContentAlignment="Center" Style="{DynamicResource TextBoxStyle1}" />
 				</Grid>
 				</Grid>
 		</Border>

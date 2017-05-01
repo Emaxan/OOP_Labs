@@ -1,6 +1,5 @@
 using System.Windows.Media;
 using GeneralObject;
-using MyPosition;
 using Params;
 
 namespace TriangleObject {
@@ -21,7 +20,8 @@ namespace TriangleObject {
 																|MyFields.Length2
 																|MyFields.Angle
 															),
-											Position = new Position(0, 0),
+											X = 0,
+											Y = 0,
 											Length1 = 0,
 											Length2 = 0,
 											Angle = 0,

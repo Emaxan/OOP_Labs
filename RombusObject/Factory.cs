@@ -1,6 +1,5 @@
 using System.Windows.Media;
 using GeneralObject;
-using MyPosition;
 using Params;
 
 namespace RombusObject {
@@ -20,7 +19,8 @@ namespace RombusObject {
 																|MyFields.Length1
 																|MyFields.Angle
 															),
-											Position = new Position(0, 0),
+											X = 0,
+											Y = 0,
 											Length1 = 0,
 											Angle = 0,
 											BgColor = Colors.Transparent,

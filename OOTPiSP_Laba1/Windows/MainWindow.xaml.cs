@@ -24,6 +24,7 @@ namespace OOTPiSP_Laba1.Windows {
 		private MyList<MyGraphicalObject> _list = new MyList<MyGraphicalObject>();
 		private bool _result;
 		private List<GeneralFactory> Factories { get; set; }
+		private WindowSettings settings;
 
 		private SelectionMode _selMode;
 
@@ -37,6 +38,16 @@ namespace OOTPiSP_Laba1.Windows {
 			SetHotKeys();
 			SelMode = LbObjects.SelectionMode;
 			_start = 0;
+			settings = new WindowSettings {
+				Width = (int)Application.Current.MainWindow.Width,
+				Height = (int)Application.Current.MainWindow.Height,
+				Top = 0,
+				Left = 0,
+				BgButtonsColor = Properties.Settings.Default.BgButtonsColor.Color,
+				BgMidColor = Properties.Settings.Default.BgMidColor.Color,
+				BgDarkColor = Properties.Settings.Default.BgDarkColor.Color,
+				BgLightColor = Properties.Settings.Default.BgLightColor.Color
+			};
 		}
 
 		private SelectionMode SelMode {
@@ -85,7 +96,7 @@ namespace OOTPiSP_Laba1.Windows {
 						CMain.Children.Add(obj.Figure);
 						if (!_result)
 							_list.RemoveHash(obj.Hash);
-						LbObjects.ItemsSource = _list.ToList();
+						LbObjects.ItemsSource = _list.ToList;
 					});
 					DpTop.Children.Add(button);
 				}));
@@ -106,6 +117,7 @@ namespace OOTPiSP_Laba1.Windows {
 			foreach(FileInfo file in new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"ext\Objects\").GetFiles("*.dll")) {
 				IncludeLibrary(file.FullName);
 			}
+			settings.Load();
 		}
 
 		private void ObjectsList_SelectionChanged(object sender, SelectionChangedEventArgs e) {
@@ -153,7 +165,7 @@ namespace OOTPiSP_Laba1.Windows {
 			var xEnd = (int) e.MouseDevice.GetPosition(CMain).X;
 			var yEnd = (int) e.MouseDevice.GetPosition(CMain).Y;
 			LMouseCoords.Content = (xEnd >= 0) && (yEnd >= 0) && (xEnd <= CMain.ActualWidth) && (yEnd <= CMain.ActualHeight)
-										? $"Mouse coordinates: ({e.MouseDevice.GetPosition(CMain).X};{e.MouseDevice.GetPosition(CMain).Y})"
+										? $"Mouse coordinates: ({e.MouseDevice.GetPosition(CMain).X};{e.MouseDevice.GetPosition(CMain).Y}) {Application.Current.MainWindow.Top} {Application.Current.MainWindow.Left} {Application.Current.MainWindow.Width} {Application.Current.MainWindow.Height}"
 										: string.Empty;
 			if(((_xStart < 0) || (_yStart < 0) || (_xStart > CMain.ActualWidth) || (_yStart > CMain.ActualHeight)) &&
 				(xEnd >= 0) &&
@@ -166,11 +178,11 @@ namespace OOTPiSP_Laba1.Windows {
 				(_yStart > CMain.ActualHeight) || (xEnd < 0) || (yEnd < 0) || (xEnd > CMain.ActualWidth) ||
 				(yEnd > CMain.ActualHeight)) return;
 			foreach(var graphicalObject in from MyGraphicalObject go in LbObjects.Items where go.IsSelectedProp select go) {
-				graphicalObject.Position.X += xEnd - _xStart;
-				graphicalObject.Position.Y += yEnd - _yStart;
+				graphicalObject.X += xEnd - _xStart;
+				graphicalObject.Y += yEnd - _yStart;
 				graphicalObject.Update();
 			}
-			LbObjects.ItemsSource = _list.ToList();
+			LbObjects.ItemsSource = _list.ToList;
 			_xStart = xEnd;
 			_yStart = yEnd;
 		}
@@ -194,6 +206,7 @@ namespace OOTPiSP_Laba1.Windows {
 						default:
 							throw new ArgumentOutOfRangeException();
 			}
+			settings.Save();
 		}
 
 		private void Create(ref MyGraphicalObject obj) {
@@ -205,7 +218,7 @@ namespace OOTPiSP_Laba1.Windows {
 										Owner = this
 									};
 			edt.ShowDialog();
-			LbObjects.ItemsSource = _list.ToList();
+			LbObjects.ItemsSource = _list.ToList;
 			_result = edt.DialogResult == true;
 			if(!_result) return;
 			page.ReadData(out param);
@@ -232,7 +245,7 @@ namespace OOTPiSP_Laba1.Windows {
 			var save = new KeyGesture(Key.S, ModifierKeys.Control);
 			MenSave.InputGestureText = "Ctrl + S";
 			MenSave.Command = Save;
-			MenSave.CommandParameter = _list.ToList();
+			MenSave.CommandParameter = _list.ToList;
 			Save.InputGestures.Add(save);
 			var cmdSave = new CommandBinding(Save, SaveFile);
 			CommandBindings.Add(cmdSave);
@@ -296,7 +309,7 @@ namespace OOTPiSP_Laba1.Windows {
 				if(ofd.ShowDialog() != true) return;
 				MyList<MyGraphicalObject> objectList;
 				try {
-					objectList = (MyList<MyGraphicalObject>)type.GetMethod("Deserialise")
+					objectList = (MyList<MyGraphicalObject>)type.GetMethod("Deserialize")
 						.MakeGenericMethod(typeof(MyList<MyGraphicalObject>))
 						.Invoke(null, new object[] {ofd.FileNames[0]});
 				}
@@ -313,12 +326,12 @@ namespace OOTPiSP_Laba1.Windows {
 					return;
 				}
 				CMain.Children.Clear();
-				for(var i = 0; i < objectList.MyCount; i++) {
+				for(var i = 0; i < objectList.Count; i++) {
 					objectList[i].Update();
 					CMain.Children.Add(objectList[i].Figure);
 				}
 				_list = objectList;
-				LbObjects.ItemsSource = _list.ToList();
+				LbObjects.ItemsSource = _list.ToList;
 				MessageBox.Show("Success!", "Success!");
 				return;
 			}
@@ -340,7 +353,7 @@ namespace OOTPiSP_Laba1.Windows {
 
 				if(sfd.ShowDialog() != true) return;
 				try {
-					type.GetMethod("Serialise")
+					type.GetMethod("Serialize")
 						.MakeGenericMethod(typeof(MyList<MyGraphicalObject>))
 						.Invoke(null, new object[] { sfd.FileNames[0], _list });
 				}
@@ -385,7 +398,7 @@ namespace OOTPiSP_Laba1.Windows {
 				CMain.Children.Remove(_list.GetHash(graphicalObject.Hash).Figure);
 				_list.RemoveHash(graphicalObject.Hash);
 			}
-			LbObjects.ItemsSource = _list.ToList();
+			LbObjects.ItemsSource = _list.ToList;
 		}
 
 		private void Edit(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs) {
@@ -411,7 +424,7 @@ namespace OOTPiSP_Laba1.Windows {
 				pages[i].ReadData(out param);
 				figure[i].SetParams(param);
 			}
-			LbObjects.ItemsSource = _list.ToList();
+			LbObjects.ItemsSource = _list.ToList;
 		}
 
 		private static void ExitApp(object sender, ExecutedRoutedEventArgs executedRoutedEventArgs)
@@ -440,6 +453,16 @@ namespace OOTPiSP_Laba1.Windows {
 		public static RoutedCommand Unselect{ get; } = new RoutedCommand("Unselect all", typeof(MainWindow));
 
 		public static RoutedCommand Delete{ get; } = new RoutedCommand("Delete selected", typeof(MainWindow));
+
+		private void WMain_SizeChanged(object sender, SizeChangedEventArgs e) {
+			settings.Height = (int)e.NewSize.Height;
+			settings.Width = (int)e.NewSize.Width;
+		}
+
+		private void WMain_LocationChanged(object sender, EventArgs e) {
+			settings.Left = (int)Application.Current.MainWindow.Left;
+			settings.Top = (int) Application.Current.MainWindow.Top;
+		}
 
 		public static RoutedCommand EditElem{ get; } = new RoutedCommand("Edit selected", typeof(MainWindow));
 

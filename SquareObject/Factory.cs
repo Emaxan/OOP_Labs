@@ -1,6 +1,5 @@
 using System.Windows.Media;
 using GeneralObject;
-using MyPosition;
 using Params;
 
 namespace SquareObject {
@@ -19,7 +18,8 @@ namespace SquareObject {
 																|MyFields.Position
 																|MyFields.Length1
 															),
-											Position = new Position(0, 0),
+											X = 0,
+											Y = 0,
 											Length1 = 0,
 											BgColor = Colors.Transparent,
 											BorderColor = Colors.Black,

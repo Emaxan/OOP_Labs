@@ -3,7 +3,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using MyPosition;
 using Params;
 
 namespace OOTPiSP_Laba1.Windows {
@@ -25,10 +24,10 @@ namespace OOTPiSP_Laba1.Windows {
 					Rd1.Height = new GridLength(0);
 				}
 				if ((value & (int)MyFields.BgColor) == 0) {
-					Rd2.Height = new GridLength(0);
+					Rd3.Height = new GridLength(0);
 				}
 				if ((value & (int)MyFields.BorderColor) == 0) {
-					Rd3.Height = new GridLength(0);
+					Rd2.Height = new GridLength(0);
 				}
 				if ((value & (int)MyFields.GAngle) == 0) {
 					Rd4.Height = new GridLength(0);
@@ -51,6 +50,9 @@ namespace OOTPiSP_Laba1.Windows {
 				if ((value & (int)MyFields.Angle) == 0) {
 					Rd10.Height = new GridLength(0);
 				}
+				if((value & (int)MyFields.Text) == 0){
+					Rd11.Height = new GridLength(0);
+				}
 				_fields = value;
 			}	
 		}
@@ -60,38 +62,42 @@ namespace OOTPiSP_Laba1.Windows {
 		/// </summary>
 		public void ReadData(out MyParams myParams) {
 			myParams = new MyParams {Fields = _fields};
-			if ((_fields & (int)MyFields.Name) != 0) {
-			myParams.Name = TbName.Text;
+			if((_fields&(int) MyFields.Name) != 0) {
+				myParams.Name = TbName.Text;
 			}
-			if ((_fields & (int)MyFields.Thickness) != 0) {
-			myParams.Thickness = int.Parse(TbThickness.Text);
+			if((_fields&(int) MyFields.Thickness) != 0) {
+				myParams.Thickness = int.Parse(TbThickness.Text);
 			}
-			if ((_fields & (int)MyFields.BgColor) != 0) {
-			myParams.BgColor = ((SolidColorBrush)BgColor.Background).Color;
+			if((_fields&(int) MyFields.BgColor) != 0) {
+				myParams.BgColor = ((SolidColorBrush) BgColor.Background)?.Color ?? Colors.Transparent;
 			}
-			if ((_fields & (int)MyFields.BorderColor) != 0) {
-			myParams.BorderColor = ((SolidColorBrush)BColor.Background).Color;
+			if((_fields&(int) MyFields.BorderColor) != 0) {
+				myParams.BorderColor = ((SolidColorBrush)BColor.Background)?.Color ?? Colors.Transparent;
 			}
-			if ((_fields & (int)MyFields.GAngle) != 0) {
-			myParams.GAngle = float.Parse(TbGAngle.Text);
+			if((_fields&(int) MyFields.GAngle) != 0) {
+				myParams.GAngle = float.Parse(TbGAngle.Text);
 			}
-			if ((_fields & (int)MyFields.Position) != 0) {
-			myParams.Position = new Position(int.Parse(TbPosX.Text), int.Parse(TbPosY.Text));
+			if((_fields&(int) MyFields.Position) != 0) {
+				myParams.X = int.Parse(TbPosX.Text);
+				myParams.Y = int.Parse(TbPosY.Text);
 			}
-			if ((_fields & (int)MyFields.RadiusX) != 0) {
-			myParams.RadiusX = int.Parse(TbRadiusX.Text);
+			if((_fields&(int) MyFields.RadiusX) != 0) {
+				myParams.RadiusX = int.Parse(TbRadiusX.Text);
 			}
-			if ((_fields & (int)MyFields.RadiusY) != 0) {
-			myParams.RadiusY = int.Parse(TbRadiusY.Text);
+			if((_fields&(int) MyFields.RadiusY) != 0) {
+				myParams.RadiusY = int.Parse(TbRadiusY.Text);
 			}
-			if ((_fields & (int)MyFields.Length1) != 0) {
-			myParams.Length1 = int.Parse(TbLength1.Text);
+			if((_fields&(int) MyFields.Length1) != 0) {
+				myParams.Length1 = int.Parse(TbLength1.Text);
 			}
-			if ((_fields & (int)MyFields.Length2) != 0) {
-			myParams.Length2 = int.Parse(TbLength2.Text);
+			if((_fields&(int) MyFields.Length2) != 0) {
+				myParams.Length2 = int.Parse(TbLength2.Text);
 			}
-			if ((_fields & (int)MyFields.Angle) != 0) {
-			myParams.Angle = float.Parse(TbAngle.Text);
+			if((_fields&(int) MyFields.Angle) != 0) {
+				myParams.Angle = float.Parse(TbAngle.Text);
+			}
+			if((_fields&(int) MyFields.Text) != 0) {
+				myParams.Text = TbText.Text;
 			}
 		}
 
@@ -116,10 +122,10 @@ namespace OOTPiSP_Laba1.Windows {
 			TbGAngle.Text = myParams.GAngle.ToString(CultureInfo.InvariantCulture);
 			}
 			if ((_fields & (int)MyFields.Position) != 0) {
-			TbPosX.Text = myParams.Position.X.ToString(CultureInfo.InvariantCulture);
+			TbPosX.Text = myParams.X.ToString(CultureInfo.InvariantCulture);
 			}
 			if ((_fields & (int)MyFields.Position) != 0) {
-			TbPosY.Text = myParams.Position.Y.ToString(CultureInfo.InvariantCulture);
+			TbPosY.Text = myParams.Y.ToString(CultureInfo.InvariantCulture);
 			}
 			if ((_fields & (int)MyFields.RadiusX) != 0) {
 			TbRadiusX.Text = myParams.RadiusX.ToString(CultureInfo.InvariantCulture);
@@ -135,6 +141,9 @@ namespace OOTPiSP_Laba1.Windows {
 			}
 			if ((_fields & (int)MyFields.Angle) != 0) {
 				TbAngle.Text = myParams.Angle.ToString(CultureInfo.InvariantCulture);
+			}
+			if ((_fields & (int)MyFields.Text) != 0) {
+				TbText.Text = myParams.Text;
 			}
 		}
 
@@ -170,7 +179,7 @@ namespace OOTPiSP_Laba1.Windows {
 
 		private void Color_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
 			var picker = ColorPicker.GetInstance();
-			Color? c = picker.PickColor(((SolidColorBrush)((Border)sender).Background).Color);
+			Color? c = picker.PickColor(((SolidColorBrush)((Border)sender).Background)?.Color??Colors.Transparent);
 			if (c != null)
 				((Border)sender).Background = new SolidColorBrush((Color)c);
 		}

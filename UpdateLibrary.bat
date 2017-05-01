@@ -6,6 +6,8 @@ copy /Y /B RectangleObject\bin\Debug\RectangleObject.dll OOTPiSP_Laba1\bin\Debug
 copy /Y /B RombusObject\bin\Debug\RombusObject.dll OOTPiSP_Laba1\bin\Debug\ext\RombusObject.dll
 copy /Y /B SquareObject\bin\Debug\SquareObject.dll OOTPiSP_Laba1\bin\Debug\ext\SquareObject.dll
 copy /Y /B TriangleObject\bin\Debug\TriangleObject.dll OOTPiSP_Laba1\bin\Debug\ext\TriangleObject.dll
+copy /Y /B TextObject\bin\Debug\TextObject.dll OOTPiSP_Laba1\bin\Debug\ext\TextObject.dll
+
 copy /Y /B CircleObject\bin\Debug\CircleObject.dll OOTPiSP_Laba1\bin\Debug\ext\Objects\CircleObject.dll
 copy /Y /B EllipseObject\bin\Debug\EllipseObject.dll OOTPiSP_Laba1\bin\Debug\ext\Objects\EllipseObject.dll
 copy /Y /B LineObject\bin\Debug\LineObject.dll OOTPiSP_Laba1\bin\Debug\ext\Objects\LineObject.dll
@@ -14,3 +16,4 @@ copy /Y /B RectangleObject\bin\Debug\RectangleObject.dll OOTPiSP_Laba1\bin\Debug
 copy /Y /B RombusObject\bin\Debug\RombusObject.dll OOTPiSP_Laba1\bin\Debug\ext\Objects\RombusObject.dll
 copy /Y /B SquareObject\bin\Debug\SquareObject.dll OOTPiSP_Laba1\bin\Debug\ext\Objects\SquareObject.dll
 copy /Y /B TriangleObject\bin\Debug\TriangleObject.dll OOTPiSP_Laba1\bin\Debug\ext\Objects\TriangleObject.dll
+copy /Y /B TextObject\bin\Debug\TextObject.dll OOTPiSP_Laba1\bin\Debug\ext\Objects\TextObject.dll

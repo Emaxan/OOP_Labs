@@ -3,24 +3,25 @@
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:properties="clr-namespace:OOTPiSP_Laba1.Properties"
 		xmlns:windows="clr-namespace:OOTPiSP_Laba1.Windows"
 		mc:Ignorable="d"
-		Title="FigureMax" Height="768" Width="1366" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+		Title="FigureMax" Height="768" Width="1366" WindowStartupLocation="CenterScreen"
 		WindowState="Normal" MouseLeftButtonDown="CMain_MouseLeftButtonDown" MouseMove="CMain_MouseMove"
-		Closing="MainWindow_OnClosing" Loaded="Window_loaded">
+		Closing="MainWindow_OnClosing" Loaded="Window_loaded" MinHeight="300" MinWidth="500" SizeChanged="WMain_SizeChanged" LocationChanged="WMain_LocationChanged">
 	<Grid>
 		<Border HorizontalAlignment="Stretch" Margin="0,50,200,30" VerticalAlignment="Stretch" BorderThickness="0"
-				BorderBrush="Black" Background="DimGray">
+				BorderBrush="Black" Background="{Binding Source={x:Static properties:Settings.Default}, Path=BgMidColor, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
 			<Canvas x:Name="CMain" />
 		</Border>
-		<Rectangle Fill="#3c3c3c" HorizontalAlignment="Stretch" Height="50" Stroke="#3c3c3c"
+		<Rectangle Fill="{Binding Source={x:Static properties:Settings.Default}, Path=BgDarkColor, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" Height="50" Stroke="{Binding Source={x:Static properties:Settings.Default}, Path=BgDarkColor, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 					VerticalAlignment="Top" />
-		<Rectangle Fill="#3c3c3c" HorizontalAlignment="Stretch" Height="30" Stroke="#3c3c3c"
-					VerticalAlignment="Bottom" Margin="0,291,0,0" />
-		<Rectangle Fill="#3c3c3c" HorizontalAlignment="Right" Stroke="#3c3c3c" VerticalAlignment="Stretch"
+		<Rectangle Fill="{Binding Source={x:Static properties:Settings.Default}, Path=BgDarkColor, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" Height="30" Stroke="{Binding Source={x:Static properties:Settings.Default}, Path=BgDarkColor, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+					VerticalAlignment="Bottom"/>
+		<Rectangle Fill="{Binding Source={x:Static properties:Settings.Default}, Path=BgDarkColor, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Stroke="{Binding Source={x:Static properties:Settings.Default}, Path=BgDarkColor, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Stretch"
 					Width="200" Margin="0,50,0,30" />
 		<ListBox x:Name="LbObjects" HorizontalAlignment="Right" VerticalAlignment="Stretch" Width="200" BorderThickness="0"
-				Margin="0,50,0,120" SelectionChanged="ObjectsList_SelectionChanged" SelectionMode="Extended" Background="#7c7c7c">
+				Margin="0,50,0,120" SelectionChanged="ObjectsList_SelectionChanged" SelectionMode="Extended" Background="{Binding Source={x:Static properties:Settings.Default}, Path=BgLightColor, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
 			<ListBox.ItemContainerStyle>
 				<Style TargetType="{x:Type ListBoxItem}">
 					<Setter Property="IsEnabled" Value="{Binding IsSelectable, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>

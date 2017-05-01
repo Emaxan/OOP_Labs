@@ -13,6 +13,7 @@ namespace Params {
 		RadiusY = 128,      //0x80
 		Length1 = 256,      //0x100
 		Length2 = 512,      //0x200
-		Angle = 1024        //0x400
+		Angle = 1024,       //0x400
+		Text = 2048			//0x800
 	}
 }

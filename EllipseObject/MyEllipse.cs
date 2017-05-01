@@ -36,7 +36,8 @@ namespace EllipseObject {
 									BgColor = BgColor,
 									BorderColor = BorderColor,
 									GAngle = AngleGlobal,
-									Position = Position,
+									X = X,
+									Y = Y,
 									RadiusX = RadiusX,
 									RadiusY = RadiusY
 								};
@@ -48,15 +49,15 @@ namespace EllipseObject {
 			if((param.Fields&(int) MyFields.BgColor) != 0) BgColor = param.BgColor;
 			if((param.Fields&(int) MyFields.BorderColor) != 0) BorderColor = param.BorderColor;
 			if((param.Fields&(int) MyFields.GAngle) != 0) AngleGlobal = param.GAngle;
-			if((param.Fields&(int) MyFields.Position) != 0) Position = param.Position;
-			if((param.Fields&(int) MyFields.RadiusX) != 0) RadiusX = param.RadiusX;
+			if((param.Fields&(int) MyFields.Position) != 0) { X = param.X; Y = param.Y; }
+			if ((param.Fields&(int) MyFields.RadiusX) != 0) RadiusX = param.RadiusX;
 			if((param.Fields&(int) MyFields.RadiusY) != 0) RadiusY = param.RadiusY;
 			Update();
 		}
 		
 		public override void Update() {
-			var rt = new RotateTransform(AngleGlobal, Position.X, Position.Y);
-			var tt = new TranslateTransform(Position.X - RadiusX, Position.Y - RadiusY);
+			var rt = new RotateTransform(AngleGlobal, X, Y);
+			var tt = new TranslateTransform(X - RadiusX, Y - RadiusY);
 			var tg = new TransformGroup();
 			tg.Children.Add(tt);
 			tg.Children.Add(rt);
