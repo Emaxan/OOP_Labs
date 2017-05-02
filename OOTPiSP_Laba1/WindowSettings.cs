@@ -135,7 +135,7 @@ namespace OOTPiSP_Laba1 {
 					Left = (int)(Application.Current.MainWindow.Left = t.Left);
 					Top = (int)(Application.Current.MainWindow.Top = t.Top);
 					Width = (int)(Application.Current.MainWindow.Width = t.Width);
-				});//TODO ScRGB, PROBBING
+				});
 			}
 		}
 	}
